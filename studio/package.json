@@ -1,0 +1,21 @@
+{
+  "name": "bkc-archive-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "init": "sanity init",
+    "import": "sanity dataset import"
+  },
+  "dependencies": {
+    "@sanity/vision": "^4.10.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "sanity": "^4.10.1",
+    "styled-components": "^6.1.13"
+  }
+}
