@@ -60,7 +60,7 @@ if (existsSync(entriesPath)) {
   ENTRIES = JSON.parse(readFileSync(entriesPath, 'utf8'))
   console.log(`Loaded ${Object.keys(ENTRIES).length} wiki entries`)
 } else {
-  console.warn('public/entries.json not found — run: node scripts/build-entries.mjs')
+  console.warn('public/entries.json not found — wiki cards will be text-only')
 }
 
 // ── LLM Engine helpers ────────────────────────────────────────────────────────
@@ -114,20 +114,62 @@ async function pollResponse(sentAt) {
   return null
 }
 
-// ── Entry matching ────────────────────────────────────────────────────────────
+// ── LLM-based entry classification + synthesis ────────────────────────────────
 
-function matchEntry(text) {
-  const q = text.toLowerCase()
-  let best = null, bestScore = 0
-  for (const [slug, entry] of Object.entries(ENTRIES)) {
-    const score = (entry.keywords ?? [])
-      .filter(kw => kw.length >= 3 && q.includes(kw)).length
-    if (score > bestScore) { bestScore = score; best = slug }
+const ENTRY_CONTEXT = Object.entries(ENTRIES)
+  .map(([slug, e]) => {
+    const l2 = htmlToMrkdwn(e.l2 ?? '').slice(0, 150)
+    return `${slug}: ${e.l1?.label ?? slug} — ${e.l1?.gloss ?? ''}\n  "${l2}"`
+  })
+  .join('\n')
+
+async function classifyAndSynthesize(query, response) {
+  const apiKey  = process.env.OPENAI_API_KEY
+  const baseUrl = (process.env.OPENAI_BASE_URL ?? 'https://api.openai.com/v1').replace(/\/$/, '')
+  if (!apiKey || !Object.keys(ENTRIES).length) return { slug: null, synthesis: null }
+
+  const prompt =
+`You are surfacing a BKC Archive Wiki entry after a bot responded to a query.
+
+User query: "${query}"
+Bot response: "${(response ?? '').slice(0, 200)}"
+
+Wiki entries (slug: label — gloss / excerpt):
+${ENTRY_CONTEXT}
+
+1. Pick the single best-matching slug.
+2. Write 1–2 sentences that bridge the bot response to what the archive actually holds on this topic. Be specific — reference the archive's actual angle. No filler phrases.
+
+Respond with JSON only: {"slug": "...", "synthesis": "..."}`
+
+  try {
+    const res = await fetch(`${baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 150,
+        temperature: 0,
+        response_format: { type: 'json_object' }
+      })
+    })
+    if (!res.ok) { console.warn('[classify] API error', res.status); return { slug: null, synthesis: null } }
+    const parsed = JSON.parse((await res.json()).choices?.[0]?.message?.content ?? '{}')
+    const slug = (parsed.slug ?? '').toLowerCase().replace(/[^a-z0-9-]/g, '')
+    const synthesis = (parsed.synthesis ?? '').trim()
+    console.log(`[classify] → ${slug}`)
+    return {
+      slug: (slug && slug !== 'none' && ENTRIES[slug]) ? slug : null,
+      synthesis: synthesis || null
+    }
+  } catch (e) {
+    console.warn('[classify] failed:', e.message)
+    return { slug: null, synthesis: null }
   }
-  return bestScore >= 2 ? best : null
 }
 
-// ── Block Kit builder ─────────────────────────────────────────────────────────
+// ── Card builder (mirrors NextSpace card design) ──────────────────────────────
 
 function htmlToMrkdwn(html) {
   return (html ?? '')
@@ -137,65 +179,68 @@ function htmlToMrkdwn(html) {
     .trim()
 }
 
-function wikiPageUrl(entry) {
-  const sub = entry.l1.kind === 'topic'  ? 'topics'
-            : entry.l1.kind === 'person' ? 'people'
-            : entry.l1.kind === 'org'    ? 'orgs'
-            : null
-  return sub
-    ? `https://szgrune.github.io/bkc-archive-wiki/${sub}/${entry.slug}`
-    : 'https://szgrune.github.io/bkc-archive-wiki/'
-}
-
-function buildBlocks(entry) {
+function buildCard(entry, generatedSynthesis) {
   const l1 = entry.l1
   const kindLabel = l1.kind === 'topic'  ? 'Topic'
                   : l1.kind === 'person' ? 'Person'
                   : l1.kind === 'org'    ? 'Organization'
                   : 'Index'
 
-  // L2 — truncate synthesis to 280 chars for Slack
-  const prose = htmlToMrkdwn(entry.l2)
-  const snippet = prose.length > 280 ? prose.slice(0, 277) + '…' : prose
+  // Generated synthesis bridges the quip to the wiki entry; fall back to wiki prose
+  const wikiSynth = htmlToMrkdwn(entry.l2)
+  const synthesis = generatedSynthesis ?? (wikiSynth.length > 400 ? wikiSynth.slice(0, 397) + '…' : wikiSynth)
 
-  // L3 — up to 4 items, linked where possible
+  // L3 curated items from entries.json — real titles, URLs, domains
   const items = (entry.l3 ?? []).slice(0, 4).map(it => {
     const title = it.url ? `<${it.url}|${it.t}>` : it.t
-    return `• ${title} · _${it.dom}_ · ${it.d}`
+    const meta = it.clinic ? `_${it.dom} · Cyberlaw Clinic_` : `_${it.dom}_ · ${it.d}`
+    return `• ${title} · ${meta}`
   }).join('\n')
 
-  const conf = Math.round((entry.conf ?? 0.8) * 100)
-  const provText = `${entry.prov?.where ?? 'BKC Archive Wiki'} · maintained by LLM · confidence ${conf}%`
+  const wikiUrl = (() => {
+    const sub = l1.kind === 'topic' ? 'topics' : l1.kind === 'person' ? 'people' : l1.kind === 'org' ? 'orgs' : null
+    return sub
+      ? `https://szgrune.github.io/bkc-archive-wiki/${sub}/${entry.slug}`
+      : 'https://szgrune.github.io/bkc-archive-wiki/'
+  })()
 
   return [
+    // Kicker — mirrors sc-kicker + pill in NextSpace
     {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `*📚 From the BKC Archive Wiki*\n_${kindLabel} · ${l1.label}_ — ${l1.count} items`
+        text: `*📚 From the BKC Archive Wiki* · _${kindLabel} · ${l1.label}_${l1.count ? ` — ${l1.count} items` : ''}`
       }
     },
     { type: 'divider' },
+    // L2 synthesis (from RAG)
     {
       type: 'section',
-      text: { type: 'mrkdwn', text: `*L2 — Synthesis*\n${snippet}` }
+      text: { type: 'mrkdwn', text: synthesis }
     },
+    // L3 curated items
     ...(items ? [{
       type: 'section',
-      text: { type: 'mrkdwn', text: `*L3 — Key items*\n${items}` }
+      text: { type: 'mrkdwn', text: `*Cited items*\n${items}` }
     }] : []),
+    // Open wiki button
     {
       type: 'actions',
       elements: [{
         type: 'button',
-        text: { type: 'plain_text', text: 'Full wiki page →' },
-        url: wikiPageUrl(entry),
+        text: { type: 'plain_text', text: 'Open wiki page →' },
+        url: wikiUrl,
         action_id: 'open_wiki'
       }]
     },
+    // Provenance footer
     {
       type: 'context',
-      elements: [{ type: 'mrkdwn', text: provText }]
+      elements: [{
+        type: 'mrkdwn',
+        text: `held in: ${entry.prov?.where ?? 'BKC Archive Wiki'} · maintained by: ${entry.prov?.who ?? 'LLM synthesis'}`
+      }]
     }
   ]
 }
@@ -211,8 +256,38 @@ const slackApp = new App({
 // Acknowledge button clicks (required by Slack, even for url-type buttons)
 slackApp.action('open_wiki', async ({ ack }) => { await ack() })
 
+async function fetchChannelContext(client, channel, excludeTs) {
+  try {
+    const result = await client.conversations.history({
+      channel,
+      limit: 12,
+      exclude_archived: true
+    })
+    const msgs = (result.messages ?? [])
+      .filter(m => m.ts !== excludeTs && !m.subtype && m.text)
+      .slice(0, 10)
+      .reverse()
+    if (!msgs.length) {
+      console.log('[context] no prior messages found')
+      return ''
+    }
+    // Truncate individual messages so a long paste doesn't dominate
+    const lines = msgs.map(m => {
+      const text = m.text.replace(/<[^>]+>/g, '').trim()
+      const truncated = text.length > 300 ? text.slice(0, 297) + '…' : text
+      return `[${m.username ?? m.user ?? 'user'}]: ${truncated}`
+    })
+    console.log(`[context] ${msgs.length} messages fetched from ${channel}`)
+    return `Recent channel conversation (for context only):\n${lines.join('\n')}\n\n`
+  } catch (e) {
+    console.warn('[context] failed to fetch channel history:', e.message)
+    return ''
+  }
+}
+
 slackApp.event('app_mention', async ({ event, client }) => {
-  const query = event.text.replace(/<@[A-Z0-9]+>/g, '').trim()
+  // Keep bot name in the query so the historian's intent check recognises it
+  const query = event.text.replace(/<@[A-Z0-9]+>/g, `@${process.env.SLACK_BOT_NAME ?? 'archive-berkie'}`).trim()
   if (!query) return
 
   console.log(`[Slack] @mention in ${event.channel}: "${query.slice(0, 80)}"`)
@@ -237,9 +312,16 @@ slackApp.event('app_mention', async ({ event, client }) => {
 
   try {
     if (!jwt) await login()
+    const context = await fetchChannelContext(client, event.channel, event.ts)
     const sentAt = new Date()
-    await sendMessage(query)
-    const response = await pollResponse(sentAt)
+    await sendMessage(context + query)
+    const raw = await pollResponse(sentAt)
+    const response = raw
+      ? raw
+          .replace(/^[^.\n!?]{0,60}:\s+(?=[A-Z“””])/, '') // strip “Label: “ prefix added by LLM Engine
+          .replace(/^[“””']+|[“””']+$/g, '')                          // strip surrounding quotes
+          .trim()
+      : null
     await deleteThinking()
 
     if (!response) {
@@ -258,15 +340,15 @@ slackApp.event('app_mention', async ({ event, client }) => {
       text: response
     })
 
-    // Wiki surfacing card
-    const slug  = matchEntry(query + ' ' + response)
+    // Card: LLM picks entry + generates bridge synthesis
+    const { slug, synthesis: generatedSynthesis } = await classifyAndSynthesize(query, response)
     const entry = slug ? ENTRIES[slug] : null
     if (entry) {
       await client.chat.postMessage({
         channel: event.channel,
         thread_ts: event.ts,
         text: `From the BKC Archive Wiki — ${entry.l1.label}`,
-        blocks: buildBlocks(entry),
+        blocks: buildCard(entry, generatedSynthesis),
         unfurl_links: false
       })
     }

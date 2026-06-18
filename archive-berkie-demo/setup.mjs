@@ -173,17 +173,7 @@ You are an assistant, not an authority. The human keeps interpretive control.`
       }
     }
   ],
-  adapters: SLACK_CHANNEL && SLACK_BOT_TOKEN ? [
-    {
-      type: 'slack',
-      config: {
-        channel: SLACK_CHANNEL,
-        workspace: SLACK_WORKSPACE,
-        botToken: SLACK_BOT_TOKEN,
-        botName: SLACK_BOT_NAME
-      }
-    }
-  ] : []
+  adapters: []
 }, jwt)
 
 const conversationId = conversation?.id ?? conversation?._id
