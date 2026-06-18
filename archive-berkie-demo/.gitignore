@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Secrets
+.env
+
+# Generated / runtime
+chroma/
+chunks/
+pdfs/
+.setup-state.json

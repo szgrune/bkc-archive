@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Berkie · NextSpace — archive wiki & the pyramid of representations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --msb:#4845d2; --msb-2:#7B78E5;
+    --lav-100:#EDE7F6; --lav-200:#D1C4E9; --lav-bubble:#DDD6FE; --lav-card:#F3F0FF; --lav-line:#A5B4FC;
+    --indigo:#6366f1;
+    --transcript-bg:#200434; --transcript-scroll:#6B21A8;
+    --gray-100:#f3f4f6; --gray-400:#9ca3af; --gray-500:#6b7280; --gray-700:#374151; --gray-800:#1f2937; --gray-900:#111827;
+    --teal:#0f6e56; --coral:#993c1d; --amber:#9a6206;
+    --font:'Inter','Inter Variable',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{ font-family:var(--font); background:#fff; color:var(--gray-900); -webkit-font-smoothing:antialiased; font-size:16px; line-height:1.5; }
+  .app{ min-height:100vh; display:flex; flex-direction:column; background:#fff; }
+
+  .toolbar{ height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 16px; flex-shrink:0; }
+  @media(min-width:1024px){ .toolbar{ padding:0 32px; } }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand h1{ font-size:24px; font-weight:700; letter-spacing:-.01em; }
+  .nav-links{ display:none; align-items:center; gap:22px; }
+  @media(min-width:1024px){ .nav-links{ display:flex; } }
+  .nav-links button, .nav-links a{ font:inherit; font-size:15px; font-weight:500; color:#000; background:none; border:0; cursor:pointer; text-transform:capitalize; padding:6px 4px; text-decoration:none; transition:color .2s; }
+  .nav-links button:hover, .nav-links a:hover{ color:var(--msb); }
+  .hamburger{ display:flex; background:none; border:0; cursor:pointer; color:var(--msb); }
+  @media(min-width:1024px){ .hamburger{ display:none; } }
+
+  main{ flex:1; display:flex; flex-direction:row; height:calc(100vh - 56px); overflow:hidden; }
+  .rail{ display:none; flex-direction:column; align-items:center; padding:24px 0; gap:8px; flex-shrink:0; width:72px; background:var(--lav-100); border-right:1px solid var(--lav-200); }
+  @media(min-width:1024px){ .rail{ display:flex; } }
+  .rail-item{ display:flex; flex-direction:column; align-items:center; gap:4px; width:100%; padding:12px 4px; background:transparent; border:0; cursor:pointer; transition:background .15s; }
+  .rail-item.active{ background:var(--lav-200); }
+  .rail-item:hover:not(.active){ background:rgba(209,196,233,.4); }
+  .rail-item .lbl{ font-size:10px; letter-spacing:.03em; text-transform:uppercase; line-height:1.2; text-align:center; color:#9e9e9e; font-weight:400; }
+  .rail-item.active .lbl{ color:#1a1a1a; font-weight:700; }
+
+  .cols{ flex:1; display:flex; flex-direction:row; overflow:hidden; }
+  .center{ flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
+  .chat-scroll{ flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; padding:8px 8px; background:var(--gray-100); }
+  @media(min-width:768px){ .chat-scroll{ padding:8px 32px; } }
+  .welcome{ width:100%; padding:16px 0 8px; }
+  .welcome h2{ font-size:20px; font-weight:700; text-transform:uppercase; letter-spacing:.02em; }
+  .welcome h2 .ev{ color:var(--msb); }
+  .welcome p{ font-size:14px; color:var(--gray-500); margin-top:2px; }
+
+  .berkie-row{ display:flex; flex-direction:row; gap:6px; padding:8px; border-radius:8px; animation:rise .45s cubic-bezier(.2,.7,.2,1); }
+  .avatar{ width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; background:var(--lav-bubble); }
+  .b-body{ display:flex; flex-direction:column; align-items:flex-start; flex:1; min-width:0; }
+  .b-name{ font-size:14px; font-weight:700; margin-bottom:4px; }
+  .b-content{ width:96%; max-width:96%; }
+  @media(min-width:1024px){ .b-content{ width:88%; } }
+  .bubble{ border-radius:16px; padding:8px 14px; color:var(--gray-800); background:var(--lav-bubble); border:1px solid rgba(0,0,0,.1); font-size:15px; line-height:1.55; }
+  .bubble p{ margin:4px 0; }
+  .bubble p:first-child{ margin-top:0; }
+  .bubble p:last-child{ margin-bottom:0; }
+  .bubble code{ font-family:var(--mono); font-size:13px; background:rgba(72,69,210,.1); padding:1px 5px; border-radius:4px; }
+
+  /* thinking indicator */
+  .thinking-bubble{ display:flex; align-items:center; gap:5px; padding:12px 16px; }
+  .thinking-bubble .dot{ width:7px; height:7px; border-radius:50%; background:var(--msb-2); animation:blink 1.4s infinite; }
+  .thinking-bubble .dot:nth-child(2){ animation-delay:.2s; }
+  .thinking-bubble .dot:nth-child(3){ animation-delay:.4s; }
+  @keyframes blink{ 0%,80%,100%{ opacity:.2; } 40%{ opacity:1; } }
+
+  .user-row{ display:flex; flex-direction:row-reverse; gap:6px; padding:8px; animation:rise .45s cubic-bezier(.2,.7,.2,1); }
+  .user-bubble{ border-radius:16px; padding:8px 14px; background:#fff; border:1px solid var(--lav-200); font-size:15px; max-width:80%; }
+  .user-av{ width:32px; height:32px; border-radius:50%; flex-shrink:0; background:#e5e7eb; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color:#6b7280; }
+
+  /* ── Pyramid surfacing card ── */
+  .surface{ width:100%; border-radius:12px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,.05); border:1px solid var(--lav-200); background:#fff; animation:rise .45s cubic-bezier(.2,.7,.2,1); }
+  .surface.unprompted{ border-style:dashed; border-color:var(--msb-2); }
+  .sc-head{ padding:11px 16px 9px; background:var(--lav-card); border-bottom:1px solid var(--lav-200); }
+  .sc-kicker{ font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--msb); margin-bottom:5px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .pill{ font-size:11px; font-weight:600; padding:2px 9px; border-radius:20px; text-transform:none; letter-spacing:0; }
+  .p-purple{ background:rgba(72,69,210,.12); color:var(--msb); }
+  .p-teal{ background:rgba(15,110,86,.13); color:var(--teal); }
+  .p-coral{ background:rgba(153,60,29,.13); color:var(--coral); }
+  .p-amber{ background:rgba(154,98,6,.14); color:var(--amber); }
+  .sc-why{ font-size:13px; color:var(--gray-700); line-height:1.5; }
+  .sc-why .benjamin{ font-style:italic; color:#000; }
+
+  /* level ladder */
+  .ladder{ display:flex; align-items:stretch; gap:0; padding:10px 16px 0; background:#fff; border-bottom:1px solid var(--gray-100); flex-wrap:wrap; }
+  .rung{ font:inherit; font-size:11px; font-weight:600; letter-spacing:.02em; border:1px solid var(--lav-200); background:#fff; color:var(--gray-500); cursor:pointer; padding:5px 10px; display:flex; align-items:center; gap:6px; transition:all .15s; border-right:0; }
+  .rung:first-child{ border-radius:7px 0 0 7px; }
+  .rung:last-child{ border-radius:0 7px 7px 0; border-right:1px solid var(--lav-200); }
+  .rung:hover{ background:var(--lav-card); color:var(--msb); }
+  .rung.on{ background:var(--msb); color:#fff; border-color:var(--msb); }
+  .rung .lv{ font-family:var(--mono); font-size:10px; opacity:.8; }
+  .rung.on .lv{ opacity:1; }
+
+  .sc-body{ padding:14px 16px; }
+  .lvl-tag{ display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--msb-2); margin-bottom:9px; }
+  .lvl-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--msb-2); }
+
+  /* L1 catalog */
+  .cat-line{ font-size:14px; line-height:1.6; padding:8px 12px; border-radius:8px; background:var(--lav-card); margin-bottom:6px; }
+  .cat-line b{ color:var(--msb); font-weight:600; }
+  .cat-line .ct{ color:var(--gray-500); }
+  .cat-count{ font-family:var(--mono); font-size:12px; color:var(--gray-400); }
+
+  /* L2 synthesis prose */
+  .synth{ font-size:14.5px; line-height:1.65; color:var(--gray-800); }
+  .synth b{ font-weight:600; }
+  .synth .src-note{ font-size:12px; color:var(--gray-500); margin-top:10px; font-style:italic; }
+
+  /* L3 item records */
+  .item{ display:flex; gap:9px; padding:9px 10px; border:1px solid var(--gray-100); border-radius:8px; margin-bottom:6px; align-items:flex-start; }
+  .item:hover{ border-color:var(--lav-200); background:#fdfcff; }
+  .item .ico{ flex-shrink:0; margin-top:2px; color:var(--gray-400); }
+  .item .it-t{ font-size:13.5px; font-weight:500; line-height:1.4; color:var(--gray-900); }
+  a.it-link{ text-decoration:none; color:var(--msb); }
+  a.it-link:hover{ text-decoration:underline; }
+  .item .it-m{ font-size:11.5px; color:var(--gray-500); margin-top:2px; }
+  .item .it-m .dom{ color:var(--msb-2); }
+  .item .it-clinic{ color:var(--teal); font-weight:600; }
+
+  /* L4 original */
+  .orig{ border:1px solid var(--lav-200); border-radius:8px; padding:14px; background:var(--lav-card); }
+  .orig .ot{ font-size:14px; font-weight:600; margin-bottom:6px; }
+  .orig .om{ font-size:12px; color:var(--gray-500); margin-bottom:10px; }
+  .orig a.openbtn{ display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:#fff; background:var(--msb); border-radius:8px; padding:8px 14px; text-decoration:none; }
+  .orig a.openbtn:hover{ background:#3a37b8; }
+  .orig .warn{ font-size:12px; color:var(--gray-500); margin-top:10px; line-height:1.5; }
+
+  /* L5 machine layer */
+  .mach{ font-family:var(--mono); font-size:12.5px; line-height:1.6; background:#1c1b2e; color:#d7d4f0; border-radius:8px; padding:12px 14px; overflow-x:auto; }
+  .mach .k{ color:#a5b4fc; } .mach .s{ color:#7dd3a8; } .mach .n{ color:#f0997b; }
+  .mach-note{ font-size:12px; color:var(--gray-500); margin-top:9px; line-height:1.5; }
+
+  /* provenance + confidence + actions */
+  .prov{ display:flex; flex-wrap:wrap; gap:6px 16px; font-size:11.5px; color:var(--gray-500); margin-top:13px; align-items:center; padding-top:11px; border-top:1px solid var(--gray-100); }
+  .prov b{ font-weight:600; color:#4b5563; }
+  .conf{ display:inline-flex; align-items:center; gap:6px; }
+  .confbar{ width:46px; height:5px; border-radius:3px; background:var(--lav-200); overflow:hidden; }
+  .confbar i{ display:block; height:100%; background:var(--teal); }
+  .confbar i.low{ background:var(--coral); }
+  .flag{ display:flex; gap:7px; align-items:flex-start; font-size:12px; color:var(--coral); margin-top:10px; background:rgba(153,60,29,.06); border-radius:6px; padding:8px 10px; }
+  .flag svg{ flex-shrink:0; margin-top:1px; }
+  .acts{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .acts button{ font:inherit; font-size:13px; font-weight:500; border-radius:8px; padding:7px 13px; cursor:pointer; border:1px solid var(--lav-200); background:#fff; color:var(--gray-800); transition:all .15s; }
+  .acts button:hover{ background:var(--gray-100); }
+  .acts .bring{ background:var(--msb); color:#fff; border-color:var(--msb); }
+  .acts .bring:hover{ background:#3a37b8; }
+  .resolve{ margin-top:11px; font-size:13px; display:flex; align-items:center; gap:7px; padding-top:10px; border-top:1px solid var(--gray-100); }
+  .resolve.kept{ color:var(--teal); } .resolve.set{ color:var(--gray-500); }
+  .surface.dismissed{ opacity:.6; }
+
+  .composer-wrap{ padding:10px 8px 14px; background:var(--gray-100); flex-shrink:0; }
+  @media(min-width:768px){ .composer-wrap{ padding:10px 32px 16px; } }
+  .runbar{ display:flex; align-items:center; gap:10px; padding:0 0 8px; flex-wrap:wrap; }
+  .runbtn{ font:inherit; font-size:13px; font-weight:500; border-radius:8px; padding:7px 14px; cursor:pointer; border:1px solid var(--lav-line); background:#fff; color:var(--msb); display:flex; align-items:center; gap:7px; }
+  .runbtn:hover{ background:var(--lav-100); }
+  .runbtn[disabled]{ opacity:.45; cursor:default; }
+  .runbtn.ghost{ color:var(--gray-500); border-color:var(--lav-200); }
+  .composer-head{ display:flex; align-items:center; gap:8px; padding:7px 12px; background:var(--lav-100); border:1px solid var(--lav-line); border-bottom:0; border-radius:8px 8px 0 0; font-size:13px; color:var(--msb); }
+  .composer-head .modesel{ margin-left:auto; }
+  select{ font:inherit; font-size:13px; color:var(--gray-800); background:#fff; border:1px solid var(--lav-line); border-radius:6px; padding:5px 26px 5px 9px; cursor:pointer; appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234845d2' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>"); background-repeat:no-repeat; background-position:right 8px center; }
+  .composer{ border:1px solid var(--lav-line); border-top:0; border-radius:0 0 8px 8px; background:#fff; transition:all .2s; }
+  .composer:focus-within{ border-color:var(--indigo); box-shadow:0 2px 8px rgba(99,102,241,.15); }
+  .composer textarea{ width:100%; padding:12px 16px 4px; border:0; outline:none; resize:none; font:inherit; font-size:16px; background:transparent; }
+  .composer-foot{ display:flex; align-items:center; justify-content:space-between; padding:2px 8px 8px; }
+  .slash{ width:30px; height:30px; border-radius:6px; border:0; background:none; cursor:pointer; color:var(--gray-500); font-size:15px; font-weight:600; }
+  .slash:hover{ background:var(--gray-100); }
+  .send{ width:34px; height:34px; border-radius:8px; border:0; background:none; cursor:pointer; color:var(--msb); display:flex; align-items:center; justify-content:center; }
+  .send:hover{ background:var(--lav-100); }
+  .ledger{ margin-top:6px; }
+  .ledger-head{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--gray-500); font-weight:600; margin-bottom:6px; }
+  .led{ font-size:12.5px; border-left:3px solid var(--lav-200); background:#fff; border-radius:0 6px 6px 0; padding:6px 10px; margin-bottom:5px; }
+  .led.kept{ border-left-color:var(--teal); } .led.set{ border-left-color:var(--gray-400); opacity:.7; }
+  .led .lt{ font-weight:500; } .led .lm{ font-size:11px; color:var(--gray-500); }
+
+  .transcript{ display:none; flex-direction:column; background:var(--transcript-bg); color:#fff; width:33vw; flex-shrink:0; }
+  @media(min-width:1024px){ .transcript{ display:flex; } }
+  .tr-head{ border-bottom:1px solid rgba(255,255,255,.1); padding:14px 16px; flex-shrink:0; display:flex; align-items:center; gap:12px; }
+  .tr-dot{ width:12px; height:12px; border-radius:50%; background:#22c55e; animation:pulse 2s infinite; }
+  .tr-dot.ended{ background:var(--gray-400); animation:none; }
+  @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(34,197,94,.5);} 70%{ box-shadow:0 0 0 7px rgba(34,197,94,0);} 100%{ box-shadow:0 0 0 0 rgba(34,197,94,0);} }
+  .tr-head h2{ font-size:18px; font-weight:600; letter-spacing:.04em; }
+  .tr-body{ flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; }
+  .tr-body::-webkit-scrollbar{ width:8px; }
+  .tr-body::-webkit-scrollbar-track{ background:#2D0A4E; }
+  .tr-body::-webkit-scrollbar-thumb{ background:var(--transcript-scroll); border-radius:9999px; }
+  .tr-msg{ margin-bottom:16px; opacity:0; transform:translateY(6px); animation:rise .4s forwards cubic-bezier(.2,.7,.2,1); }
+  .tr-msg .tr-time{ font-size:13px; color:#d1d5db; margin-bottom:4px; }
+  .tr-msg p{ font-size:15px; line-height:1.55; color:#fff; }
+  .tr-msg.highlight p{ background:rgba(124,58,237,.28); border-radius:4px; padding:2px 4px; box-shadow:0 0 0 1px rgba(165,180,252,.4); }
+  .tr-speaker{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:#a5b4fc; margin-bottom:3px; font-weight:600; }
+  @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
+
+  .note{ font-size:12px; color:var(--gray-500); line-height:1.6; padding:14px 8px 0; }
+  @media(min-width:768px){ .note{ padding:14px 32px 0; } }
+  .note b{ color:var(--gray-800); font-weight:600; }
+  .note a{ color:var(--msb); }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="toolbar">
+    <div class="brand">
+      <svg width="40" height="23.881" viewBox="0 0 40 23.881" fill="none" preserveAspectRatio="xMinYMin" aria-hidden="true">
+        <path d="M 0 11.94 C 0 5.346 5.406 0 12.075 0 L 27.925 0 C 34.594 0 40 5.346 40 11.94 L 40 23.881 L 12.075 23.881 C 5.406 23.881 0 18.535 0 11.94 Z" fill="#4845D2"></path>
+        <path d="M 27.925 4.478 L 12.075 4.478 C 7.907 4.478 4.528 7.819 4.528 11.94 C 4.528 16.062 7.907 19.403 12.075 19.403 L 27.925 19.403 C 32.093 19.403 35.472 16.062 35.472 11.94 C 35.472 7.819 32.093 4.478 27.925 4.478 Z" fill="#A5B4FC"></path>
+        <path d="M 12.075 15.672 C 14.16 15.672 15.849 14.001 15.849 11.94 C 15.849 9.88 14.16 8.209 12.075 8.209 C 9.991 8.209 8.302 9.88 8.302 11.94 C 8.302 14.001 9.991 15.672 12.075 15.672 Z" fill="black"></path>
+        <path d="M 10.566 11.194 C 10.983 11.194 11.321 10.86 11.321 10.448 C 11.321 10.036 10.983 9.701 10.566 9.701 C 10.149 9.701 9.811 10.036 9.811 10.448 C 9.811 10.86 10.149 11.194 10.566 11.194 Z" fill="white" style="transform:translate(2px,1.37px)"></path>
+        <path d="M 28.679 15.672 C 30.763 15.672 32.453 14.001 32.453 11.94 C 32.453 9.88 30.763 8.209 28.679 8.209 C 26.595 8.209 24.906 9.88 24.906 11.94 C 24.906 14.001 26.595 15.672 28.679 15.672 Z" fill="black"></path>
+        <path d="M 27.17 11.194 C 27.587 11.194 27.925 10.86 27.925 10.448 C 27.925 10.036 27.587 9.701 27.17 9.701 C 26.753 9.701 26.415 10.036 26.415 10.448 C 26.415 10.86 26.753 11.194 27.17 11.194 Z" fill="white" style="transform:translate(2px,1.37px)"></path>
+      </svg>
+      <h1>NextSpace</h1>
+    </div>
+    <div class="nav-links">
+      <button type="button">Event Schedule</button>
+      <button type="button">Schedule an Event</button>
+      <a href="#" onclick="return false">Quick Guide</a>
+      <button type="button">Preferences</button>
+      <button type="button">Give Feedback</button>
+      <button type="button">Log Out</button>
+    </div>
+    <button class="hamburger" aria-label="menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3zm0-5h18v-2H3zm0-7v2h18V6z"></path></svg></button>
+  </div>
+
+  <main>
+    <nav class="rail" aria-label="Main navigation">
+      <button class="rail-item active" aria-current="page" aria-label="Berkie">
+        <svg viewBox="0 -4 32 36" width="26" height="26" fill="none" stroke="#1a1a1a" stroke-width="1.5" aria-hidden="true"><circle cx="16" cy="5.5" r="2" fill="#1a1a1a"></circle><line x1="16" y1="7.5" x2="16" y2="10"></line><rect x="8" y="10" width="16" height="12" rx="6"></rect><circle cx="12" cy="16" r="1.5" fill="#1a1a1a"></circle><circle cx="20" cy="16" r="1.5" fill="#1a1a1a"></circle><path d="M13 19 Q16 21 19 19" stroke-linecap="round" fill="none"></path><line x1="8" y1="15" x2="4.5" y2="13"></line><line x1="24" y1="15" x2="27.5" y2="13"></line><rect x="13" y="22" width="6" height="5" rx="2"></rect></svg>
+        <span class="lbl">Berkie</span>
+      </button>
+      <button class="rail-item" aria-label="Group Chat">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="#9e9e9e" aria-hidden="true"><path d="M9 13.75c-2.34 0-7 1.17-7 3.5V19h14v-1.75c0-2.33-4.66-3.5-7-3.5M4.34 17c.84-.58 2.87-1.25 4.66-1.25s3.82.67 4.66 1.25zM9 12c1.93 0 3.5-1.57 3.5-3.5S10.93 5 9 5 5.5 6.57 5.5 8.5 7.07 12 9 12m0-5c.83 0 1.5.67 1.5 1.5S9.83 10 9 10s-1.5-.67-1.5-1.5S8.17 7 9 7m7.04 6.81c1.16.84 1.96 1.96 1.96 3.44V19h4v-1.75c0-2.02-3.5-3.17-5.96-3.44M15 12c1.93 0 3.5-1.57 3.5-3.5S16.93 5 15 5c-.54 0-1.04.13-1.5.35.63.89 1 1.98 1 3.15s-.37 2.26-1 3.15c.46.22.96.35 1.5.35"></path></svg>
+        <span class="lbl">Group Chat</span>
+      </button>
+      <button class="rail-item" aria-label="Transcript">
+        <svg width="26" height="26" viewBox="0 0 14 14" fill="#9E9E9E" aria-hidden="true"><path d="M13.4193 13.9998C13.2869 13.9996 13.1585 13.9622 13.0553 13.8936L10.2979 12.0688H8.16927C8.01456 12.0688 7.86619 12.018 7.75679 11.9274C7.6474 11.8369 7.58594 11.7141 7.58594 11.5861V9.17234C7.58594 9.04431 7.6474 8.92152 7.75679 8.83098C7.86619 8.74045 8.01456 8.68959 8.16927 8.68959H10.2984L13.0553 6.86479C13.141 6.80811 13.2444 6.77261 13.3535 6.76236C13.4625 6.75211 13.5729 6.76754 13.6718 6.80687C13.7708 6.8462 13.8543 6.90783 13.9128 6.98469C13.9713 7.06154 14.0024 7.1505 14.0026 7.24134V13.5171C14.0026 13.6451 13.9411 13.7679 13.8318 13.8584C13.7224 13.949 13.574 13.9998 13.4193 13.9998ZM8.7526 11.1033H10.5026C10.6352 11.1034 10.7638 11.1409 10.8672 11.2095L12.8359 12.513V8.24546L10.8672 9.54888C10.7638 9.61754 10.6352 9.655 10.5026 9.65509H8.7526V11.1033Z"></path><path d="M5.83333 12.5517H1.16667V0.965722H5.83333V3.86222C5.83426 4.11805 5.95747 4.36319 6.17606 4.54409C6.39465 4.72499 6.69086 4.82696 7 4.82772H10.5V6.27597H11.6667V3.86222C11.6687 3.79878 11.6541 3.73572 11.6239 3.67738C11.5937 3.61904 11.5486 3.56682 11.4917 3.5243L7.40833 0.145047C7.3572 0.0976719 7.29414 0.0601517 7.22359 0.0351294C7.15304 0.0101072 7.07672 -0.00180842 7 0.000222042H1.16667C0.857531 0.000986103 0.561321 0.102953 0.342729 0.283854C0.124136 0.464755 0.000923257 0.70989 0 0.965722V12.5517C0.000923257 12.8075 0.124136 13.0527 0.342729 13.2336C0.561321 13.4145 0.857531 13.5165 1.16667 13.5172H5.83333V12.5517ZM7 1.15882L10.2667 3.86222H7V1.15882Z"></path></svg>
+        <span class="lbl">Transcript</span>
+      </button>
+      <button class="rail-item" aria-label="Resources">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="#9e9e9e" aria-hidden="true"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1m0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5z"></path></svg>
+        <span class="lbl">Resources</span>
+      </button>
+    </nav>
+
+    <div class="cols">
+      <div class="center">
+        <div class="chat-scroll" id="chat">
+          <div class="welcome">
+            <h2>Welcome to&nbsp;<span class="ev">BKC Summer Speaker Series: Sarah Radway</span></h2>
+            <p>Ask Berkie about the event — this conversation is private. Berkie draws on the <b>BKC Archive Wiki</b>: an LLM-maintained layer over the Center's curated feed (6,925 bookmarks, 2014–2026). Each surfacing can be climbed level by level.</p>
+          </div>
+          <div id="thread"></div>
+        </div>
+
+        <div class="composer-wrap">
+          <div class="runbar">
+            <button class="runbtn" id="advance"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> let the talk continue</button>
+            <button class="runbtn ghost" id="reset"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg> restart</button>
+          </div>
+          <div class="composer-head">
+            <span>Berkie's manner</span>
+            <div class="modesel">
+              <select id="mode">
+                <option value="onreq">on request only</option>
+                <option value="gentle" selected>gentle — surfaces sparingly</option>
+                <option value="active">active — surfaces freely</option>
+              </select>
+            </div>
+          </div>
+          <div class="composer">
+            <textarea id="ask" rows="1" placeholder="Ask the archive wiki… e.g. ICE surveillance, decentralized infrastructure, who is Rudy Fraser"></textarea>
+            <div class="composer-foot">
+              <button class="slash" title="Insert / to show commands">/</button>
+              <button class="send" id="send" aria-label="send message"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"></path></svg></button>
+            </div>
+          </div>
+          <div class="ledger" id="ledger"></div>
+        </div>
+      </div>
+
+      <aside class="transcript">
+        <div class="tr-head"><span class="tr-dot" id="trdot"></span><h2>LIVE TRANSCRIPT</h2></div>
+        <div class="tr-body" id="trbody"></div>
+      </aside>
+    </div>
+  </main>
+
+  <p class="note">
+    <b>Berkie, grounded in the real BKC Archive Wiki.</b> Each surfacing is drawn from <a href="https://szgrune.github.io/bkc-archive-wiki/" target="_blank" rel="noopener">szgrune.github.io/bkc-archive-wiki</a> — an LLM-maintained wiki following the LLM-Wiki pattern (an immutable <code>raw/archive.json</code> beneath persistent, interlinked markdown the LLM writes and keeps current). Every card opens at <b>L2</b>, the synthesis prose, and can be climbed: up to <b>L1</b> (the index catalog), or down through <b>L3</b> (item records), <b>L4</b> (the original source), and <b>L5</b> (the generated machine layer). The pyramid is the point — more abstraction is not less information, but a different register for a different reader. Transcript drawn from a real BKC talk; retrieval scripted.
+  </p>
+</div>
+
+<script>
+(function(){
+  var robotSvg = '<svg viewBox="0 -4 32 36" width="22" height="22" fill="none" stroke="#4b5563" stroke-width="1.5" aria-hidden="true"><circle cx="16" cy="5.5" r="2" fill="#4b5563"></circle><line x1="16" y1="7.5" x2="16" y2="10"></line><rect x="8" y="10" width="16" height="12" rx="6"></rect><circle cx="12" cy="16" r="1.5" fill="#4b5563"></circle><circle cx="20" cy="16" r="1.5" fill="#4b5563"></circle><path d="M13 19 Q16 21 19 19" stroke-linecap="round" fill="none"></path><line x1="8" y1="15" x2="4.5" y2="13"></line><line x1="24" y1="15" x2="27.5" y2="13"></line><rect x="13" y="22" width="6" height="5" rx="2"></rect></svg>';
+  var WIKI='https://szgrune.github.io/bkc-archive-wiki/';
+
+  // ── Config ───────────────────────────────────────────────────────────────────
+  // serve.mjs proxies /api/* → http://localhost:3000/v1/*
+  var API = '/api';
+  var CONV_ID = '6a330cf1e7423a29cef8dc49';
+  var USERNAME = 'rjain';
+  var PASSWORD = 'berkman2026';
+
+  // ── State ────────────────────────────────────────────────────────────────────
+  var jwt = null;
+  var waiting = false; // lock while polling
+
+  // ── Static scripted entries (used by the transcript playback) ────────────────
+  var ENTRIES = {
+    surveillance: {
+      tag:'p-coral', tagLabel:'Topic · Surveillance & Immigration Tech',
+      l1:{ kind:'topic', label:'Surveillance & Immigration Tech', gloss:'ICE, spyware, facial recognition', count:14,
+           neighbors:['Content Moderation & Online Speech','Platform Power & Antitrust','AI Governance & Regulation'] },
+      l2:'One of the most concentrated and alarmed threads of 2025: the build-out of a US <b>domestic surveillance apparatus</b>, with <b>ICE</b> as the recurring protagonist — facial recognition (Clearview AI), bulk phone-location tracking, a central database fusing health/labor/housing data, and a "social media panopticon." Adjacent items cover commercial spyware (Paragon) and DOGE’s construction of a surveillance state. The <b>Harvard Cyberlaw Clinic</b> appears directly, representing advocates in social-media-surveillance litigation. The through-line: infrastructure built for one purpose is rapidly repurposed against immigrants and dissenters.',
+      l2src:'topics/surveillance-and-immigration-tech · synthesis maintained by the LLM',
+      l3:[
+        {t:'ICE to Buy Tool that Tracks Locations of Hundreds of Millions of Phones', d:'2025-10-01', dom:'404media.co'},
+        {t:'ICE is building a social media panopticon', d:'2025-11-03', dom:'theverge.com'},
+        {t:'ICE and CBP Agents Are Scanning People’s Faces on the Street', d:'2025-10-29', dom:'404media.co'},
+        {t:'Clinic Represents Advocates and Researchers in Social Media Surveillance Case', d:'2025-04-18', dom:'clinic.cyber.harvard.edu', clinic:true}
+      ],
+      l4:{ t:'ICE is building a social media panopticon | The Verge', dom:'theverge.com', d:'2025-11-03', tags:'orbit',
+           url:'https://www.theverge.com/policy/806425/ice-social-media-surveillance-free-speech-assault' },
+      l5:{ json:'{\n  "id": "16657259",\n  "title": "ICE is building a social media panopticon",\n  "source": "theverge.com",\n  "published": "2025-11-03",\n  "feed_tags": ["orbit"],\n  "topics": ["surveillance-and-immigration-tech"],\n  "backlinks": ["404-media", "lawfare", "cindy-cohn"]\n}',
+           note:'From the generated layer — item stub built by scripts/build.mjs, plus sources/_domains.md and timeline/_counts.md. This is the tier RAG and downstream pipelines consume.' },
+      prov:{ where:'BKC Archive Wiki · TagTeam hub 1176', who:'LLM synthesis over curated feed' }, conf:0.88
+    },
+
+    blacksky: {
+      tag:'p-purple', tagLabel:'Person · Rudy Fraser',
+      l1:{ kind:'person', label:'Rudy Fraser', gloss:'builder of Blacksky; decentralized community infrastructure', count:5,
+           neighbors:['Content Moderation & Online Speech','Digital Colonialism & the Global South'] },
+      l2:'Builder of <b>Blacksky</b>, a community-run service and moderation layer on the AT Protocol / Bluesky designed by and for Black users. The most-recurring individual in the 2025 slice — across podcasts, talks, and panels — which makes him a case study for the archive’s interest in <b>decentralized, community-controlled infrastructure</b> as an alternative to centralized platform governance. His framing — "No one’s coming to save us; communities must build their own internet" — ties decentralization to equity and self-determination.',
+      l2src:'people/rudy-fraser · synthesis maintained by the LLM',
+      l3:[
+        {t:'“No One’s Coming to Save Us. Why Communities Must Build Their Own Internet”', d:'2025-12-15', dom:'youtube.com'},
+        {t:'Designing Social Media for Black People with BlackSky’s Rudy Fraser', d:'2025-04-28', dom:'youtube.com'},
+        {t:'Rudy Fraser on Building Blacksky and the Future of Middleware', d:'2025-03-03', dom:'techpolicy.press'}
+      ],
+      l4:{ t:'Beyond Horseless Carriages: Building Communities for the Decentralized Era', dom:'youtube.com', d:'2025-03-25', tags:'community',
+           url:'https://szgrune.github.io/bkc-archive-wiki/people/rudy-fraser' },
+      l5:{ json:'{\n  "id": "13417184",\n  "person": "rudy-fraser",\n  "recurrence": 5,\n  "topics": [\n    "content-moderation-and-speech",\n    "digital-colonialism-and-global-south"\n  ],\n  "role": "hub",\n  "graph": "person-node, 5 item leaves"\n}',
+           note:'In the wiki’s graph view, people are hub nodes and items are leaves. This record is what the graph and any agent traverse.' },
+      prov:{ where:'BKC Archive Wiki · people/', who:'LLM synthesis over curated feed' }, conf:0.84
+    },
+
+    catalog: {
+      tag:'p-amber', tagLabel:'Index · the catalog itself',
+      l1:{ kind:'index', label:'Index Catalog', gloss:'the apex — every topic, person, org, by category', count:737,
+           neighbors:['Timeline 2025','Sources by domain','Feed tags'] },
+      l2:'The archive’s 2025 prototype slice is read by the LLM as a maturing techlash: a year in which complaint hardens into a <b>structural-power critique</b>. The most concentrated threads are surveillance, platform antitrust, and AI governance’s state-vs-federal tug-of-war; the archive’s distinctive note is its <b>global lens</b> — digital colonialism and Global-South reporting that US-centric collections miss. The catalog itself is the most concise representation: one line per subject, a count, and a path down.',
+      l2src:'index.md + timeline/2025 · synthesis maintained by the LLM',
+      l3:[
+        {t:'AI Governance & Regulation — the state-vs-federal regulatory tug-of-war', d:'topic', dom:'12 items'},
+        {t:'Digital Colonialism & the Global South — the archive’s distinctive global lens', d:'topic', dom:'13 items'},
+        {t:'Platform Power & Antitrust — concentration, the cloud oligopoly', d:'topic', dom:'11 items'}
+      ],
+      l4:{ t:'index — Index Catalog of the wiki. Start here, then drill into pages.', dom:'szgrune.github.io', d:'2026-06-12', tags:'index',
+           url:'https://szgrune.github.io/bkc-archive-wiki/' },
+      l5:{ json:'{\n  "scope": "prototype slice = 2025",\n  "items_filed": 737,\n  "corpus_total": 6925,\n  "years": "2014–2026",\n  "domains": 2063,\n  "generated": ["sources/_domains", "timeline/_counts", "raw/feed-tags"],\n  "source_of_truth": "raw/archive.json (immutable)"\n}',
+           note:'The reference layer: 2,063 domains and per-month counts over the full 6,925-item corpus, all generated from the immutable archive.json beneath the wiki.' },
+      prov:{ where:'BKC Archive Wiki · index.md', who:'LLM synthesis; counts generated' }, conf:0.93
+    }
+  };
+
+  var LEVELS = [
+    {id:'l1', n:'L1', name:'Catalog'},
+    {id:'l2', n:'L2', name:'Synthesis'},
+    {id:'l3', n:'L3', name:'Item records'},
+    {id:'l4', n:'L4', name:'Original'},
+    {id:'l5', n:'L5', name:'Machine layer'}
+  ];
+
+  // ── Scripted event tied to real transcript + which entry surfaces ──
+  var script = [
+    {kind:'tr', time:'01:05 PM', sp:'Sarah Radway', txt:'Hi, I’m Sarah, a PhD student in SEAS. Today I want to talk about the politics of data privacy — and how surveillance infrastructure gets repurposed.'},
+    {kind:'tr', time:'01:09 PM', sp:'Sarah Radway', txt:'Once you build a system that can identify people at scale, it doesn’t stay in its lane. It gets pointed at whoever is convenient next.'},
+    {kind:'surface', trigger:'unprompted', threshold:'gentle', entry:'surveillance',
+      why:'A prior moment from the archive, bearing on what Sarah just said. The 2025 wiki names this exact dynamic as one of the year’s most concentrated threads — and the Harvard Cyberlaw Clinic is in the record directly.'},
+    {kind:'tr', time:'01:24 PM', sp:'Sarah Radway', txt:'And the alternative isn’t no infrastructure — it’s differently-owned infrastructure. Communities building their own systems, on their own terms.'},
+    {kind:'surface', trigger:'prompted-implicit', threshold:'onreq', entry:'blacksky',
+      why:'Picking up the community-infrastructure thread. The archive’s most-recurring 2025 figure made almost exactly this argument — here is his record.'},
+    {kind:'tr', time:'01:41 PM', sp:'Sarah Radway', txt:'I think people imagine this is all brand new. But if you read the whole field at once, it’s really one long argument about power.'},
+    {kind:'surface', trigger:'unprompted', threshold:'active', entry:'catalog',
+      why:'Surfacing the whole shape, not a single item — a prior reading <span class="benjamin">blasted out of the continuum of history</span> into the room. The wiki’s own synthesis reads 2025 as exactly this: complaint hardening into a structural-power critique.'},
+    {kind:'tr', time:'01:50 PM', sp:'Sarah Radway', txt:'So that’s the thread that ties it together: who gets to see, who gets to build, and who gets to disappear.'}
+  ];
+
+  var rank={onreq:0,gentle:1,active:2};
+  var thread=document.getElementById('thread'), trbody=document.getElementById('trbody'),
+      chat=document.getElementById('chat'), ledger=document.getElementById('ledger'),
+      modeSel=document.getElementById('mode'), trdot=document.getElementById('trdot');
+  var step=0, kept=[], setaside=[], lastTrEl=null;
+
+  // ── Helpers ──────────────────────────────────────────────────────────────────
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function pc(c){ return Math.round(c*100); }
+  function allows(it){ if(it.trigger==='prompted-implicit') return true; return rank[modeSel.value]>=rank[it.threshold]; }
+  function scrollChat(){ chat.scrollTop = chat.scrollHeight; }
+  function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+  function mdToHtml(text){
+    // minimal markdown → HTML for Berkie responses
+    return esc(text)
+      .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+      .replace(/\*(.+?)\*/g, '<i>$1</i>')
+      .replace(/`(.+?)`/g, '<code>$1</code>')
+      .replace(/\n\n+/g, '</p><p>')
+      .replace(/\n/g, '<br>');
+  }
+
+  // ── Auth ─────────────────────────────────────────────────────────────────────
+  async function login(){
+    try {
+      var res = await fetch(API + '/auth/login', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({username: USERNAME, password: PASSWORD})
+      });
+      var data = await res.json();
+      jwt = data && data.tokens && data.tokens.access && data.tokens.access.token;
+      if(jwt) console.log('Berkie: authenticated');
+      else console.warn('Berkie: auth failed', data);
+    } catch(e) {
+      console.warn('Berkie: auth error', e.message);
+    }
+  }
+
+  // ── Load dynamic entries from entries.json ────────────────────────────────────
+  async function loadEntries(){
+    try {
+      var res = await fetch('./entries.json');
+      if(!res.ok) return;
+      var loaded = await res.json();
+      // merge: scripted keys stay, wiki entries added by slug
+      for(var slug in loaded) ENTRIES[slug] = loaded[slug];
+      console.log('Berkie: loaded', Object.keys(loaded).length, 'wiki entries');
+    } catch(e){
+      console.warn('Berkie: entries.json not available, using scripted fallback');
+    }
+  }
+
+  // ── Match query text to best entry ───────────────────────────────────────────
+  function matchEntry(queryText){
+    var q = queryText.toLowerCase();
+    var best = null, bestScore = 0;
+    for(var slug in ENTRIES){
+      var e = ENTRIES[slug];
+      var kws = e.keywords || [];
+      var score = 0;
+      for(var i=0; i<kws.length; i++){
+        var kw = kws[i];
+        if(kw && kw.length >= 3 && q.indexOf(kw) !== -1) score++;
+      }
+      if(score > bestScore){ bestScore = score; best = slug; }
+    }
+    return (bestScore >= 2) ? best : null;
+  }
+
+  // ── Render helpers ────────────────────────────────────────────────────────────
+  function renderTr(it, hl){
+    var d=document.createElement('div'); d.className='tr-msg'+(hl?' highlight':'');
+    d.innerHTML='<div class="tr-time">'+esc(it.time)+'</div><div class="tr-speaker">'+esc(it.sp)+'</div><p>'+esc(it.txt)+'</p>';
+    trbody.appendChild(d); trbody.scrollTop=trbody.scrollHeight; return d;
+  }
+  function renderBerkieText(html){
+    var r=document.createElement('div'); r.className='berkie-row';
+    r.innerHTML='<div class="avatar">'+robotSvg+'</div><div class="b-body"><div class="b-name">Berkie</div><div class="b-content"><div class="bubble">'+html+'</div></div></div>';
+    thread.appendChild(r); scrollChat();
+  }
+  function renderUser(t){
+    var r=document.createElement('div'); r.className='user-row';
+    r.innerHTML='<div class="user-av">YOU</div><div class="user-bubble">'+esc(t)+'</div>';
+    thread.appendChild(r); scrollChat();
+  }
+  function renderThinking(){
+    var r=document.createElement('div'); r.className='berkie-row';
+    r.innerHTML='<div class="avatar">'+robotSvg+'</div><div class="b-body"><div class="b-name">Berkie</div><div class="b-content"><div class="bubble thinking-bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div></div>';
+    thread.appendChild(r); scrollChat(); return r;
+  }
+
+  // build the body for a given level of an entry
+  function levelBody(e, lvl){
+    if(lvl==='l1'){
+      var L=e.l1;
+      var line='<div class="cat-line"><b>'+esc(L.label)+'</b> <span class="ct">— '+esc(L.gloss)+'</span> &nbsp;<span class="cat-count">('+L.count+')</span></div>';
+      var nb=(L.neighbors||[]).map(function(n){ return '<div class="cat-line" style="opacity:.7"><span class="ct">'+esc(n)+'</span></div>'; }).join('');
+      return '<div class="lvl-tag"><span class="dot"></span>L1 · Index catalog — the most concise representation</div>'+
+             line + '<div style="font-size:12px;color:var(--gray-500);margin:8px 0 4px">sits in the catalog beside:</div>' + nb +
+             '<div style="font-size:12px;color:var(--gray-500);margin-top:8px">One line, a count, a path down. This is the apex of the pyramid — where you start, then drill.</div>';
+    }
+    if(lvl==='l2'){
+      return '<div class="lvl-tag"><span class="dot"></span>L2 · Synthesis — the LLM’s interpretive prose</div>'+
+             '<div class="synth">'+e.l2+'<div class="src-note">'+esc(e.l2src)+'</div></div>';
+    }
+    if(lvl==='l3'){
+      var items=(e.l3||[]).map(function(it){
+        var meta = it.clinic
+          ? '<span class="it-clinic">'+esc(it.dom)+' · Cyberlaw Clinic</span>'
+          : '<span class="dom">'+esc(it.dom)+'</span> · '+esc(it.d);
+        var titleHtml = it.url
+          ? '<a class="it-t it-link" href="'+esc(it.url)+'" target="_blank" rel="noopener">'+esc(it.t)+'</a>'
+          : '<div class="it-t">'+esc(it.t)+'</div>';
+        return '<div class="item"><span class="ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>'+
+               '<div>'+titleHtml+'<div class="it-m">'+meta+'</div></div></div>';
+      }).join('');
+      return '<div class="lvl-tag"><span class="dot"></span>L3 · Item records — one stub per bookmark</div>'+items+
+             '<div style="font-size:12px;color:var(--gray-500);margin-top:6px">Sparse alone; the value is in the backlinks — every topic, person, and org that references them.</div>';
+    }
+    if(lvl==='l4'){
+      var o=e.l4;
+      return '<div class="lvl-tag"><span class="dot"></span>L4 · Original — full text, off-wiki</div>'+
+             '<div class="orig"><div class="ot">'+esc(o.t)+'</div>'+
+             '<div class="om">'+esc(o.dom)+' · published '+esc(o.d)+(o.tags?' · feed tag: '+esc(o.tags):'')+'</div>'+
+             '<a class="openbtn" href="'+esc(o.url)+'" target="_blank" rel="noopener">Open original <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></a>'+
+             '<div class="warn">The wiki never holds the full text — only a pointer. Provenance is preserved by linking out, not by copying in.</div></div>';
+    }
+    if(lvl==='l5'){
+      var m=e.l5;
+      var j=esc(m.json).replace(/"([^"]+)":/g,'<span class="k">"$1":</span>').replace(/: (".*?")/g,': <span class="s">$1</span>').replace(/: (\d+)/g,': <span class="n">$1</span>');
+      return '<div class="lvl-tag"><span class="dot"></span>L5 · Machine layer — generated, for consumers like Berkie</div>'+
+             '<div class="mach">'+j+'</div><div class="mach-note">'+esc(m.note)+'</div>';
+    }
+    return '';
+  }
+
+  function renderSurface(item, idx, entryOverride){
+    var e = entryOverride || ENTRIES[item.entry];
+    if(!e){ console.warn('renderSurface: no entry for', item.entry); return; }
+    var row=document.createElement('div'); row.className='berkie-row';
+    var unprompted=item.trigger==='unprompted';
+    var low=e.conf<0.66;
+    var ladderHtml=LEVELS.map(function(L){
+      return '<button class="rung'+(L.id==='l2'?' on':'')+'" data-lvl="'+L.id+'" data-i="'+idx+'"><span class="lv">'+L.n+'</span> '+L.name+'</button>';
+    }).join('');
+    var flagHtml = e.conf<0.66 ? '<div class="flag"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>Lower-confidence synthesis — verify against the item records before citing.</span></div>' : '';
+    row.innerHTML=
+      '<div class="avatar">'+robotSvg+'</div>'+
+      '<div class="b-body"><div class="b-name">Berkie</div><div class="b-content">'+
+        '<div class="surface '+(unprompted?'unprompted':'')+'" id="sc-'+idx+'">'+
+          '<div class="sc-head">'+
+            '<div class="sc-kicker">'+(unprompted?'From the archive wiki, unprompted':'From the archive wiki')+' <span class="pill '+e.tag+'">'+esc(e.tagLabel)+'</span></div>'+
+            '<div class="sc-why">'+item.why+'</div>'+
+          '</div>'+
+          '<div class="ladder">'+ladderHtml+'</div>'+
+          '<div class="sc-body" id="body-'+idx+'">'+levelBody(e,'l2')+'</div>'+
+          '<div style="padding:0 16px 14px">'+
+            '<div class="prov">'+
+              '<span><b>held in:</b> '+esc(e.prov.where)+'</span>'+
+              '<span><b>maintained by:</b> '+esc(e.prov.who)+'</span>'+
+              '<span class="conf"><b>confidence</b> <span class="confbar"><i class="'+(low?'low':'')+'" style="width:'+pc(e.conf)+'%"></i></span> '+pc(e.conf)+'%</span>'+
+            '</div>'+ flagHtml +
+            '<div class="acts">'+
+              '<button class="bring" data-i="'+idx+'">bring into the room</button>'+
+              '<button class="dismiss" data-i="'+idx+'">set aside</button>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+      '</div></div>';
+    thread.appendChild(row); scrollChat();
+
+    row.querySelectorAll('.rung').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var lvl=btn.getAttribute('data-lvl');
+        row.querySelectorAll('.rung').forEach(function(b){ b.classList.remove('on'); });
+        btn.classList.add('on');
+        document.getElementById('body-'+idx).innerHTML=levelBody(e, lvl);
+      });
+    });
+    row.querySelector('.bring').addEventListener('click', function(){ resolve(idx,e,true); });
+    row.querySelector('.dismiss').addEventListener('click', function(){ resolve(idx,e,false); });
+  }
+
+  function resolve(idx, e, brought){
+    var card=document.getElementById('sc-'+idx);
+    if(!card || card.dataset.done) return; card.dataset.done='1';
+    var acts=card.querySelector('.acts');
+    if(brought){
+      acts.outerHTML='<div class="resolve kept"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> brought into the discussion — now part of the event’s record</div>';
+      kept.push(e);
+    } else {
+      card.classList.add('dismissed');
+      acts.outerHTML='<div class="resolve set"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg> set aside — marked, not lost</div>';
+      setaside.push(e);
+    }
+    renderLedger();
+  }
+
+  function renderLedger(){
+    if(!kept.length && !setaside.length){ ledger.innerHTML=''; return; }
+    var h='<div class="ledger-head">What entered the room</div>';
+    kept.forEach(function(e){ h+='<div class="led kept"><div class="lt">'+esc(e.l1.label)+'</div><div class="lm">kept · '+esc(e.tagLabel)+'</div></div>'; });
+    setaside.forEach(function(e){ h+='<div class="led set"><div class="lt">'+esc(e.l1.label)+'</div><div class="lm">set aside · '+esc(e.tagLabel)+'</div></div>'; });
+    ledger.innerHTML=h;
+  }
+
+  function advance(){
+    if(lastTrEl) lastTrEl.classList.remove('highlight');
+    while(step<script.length){
+      var it=script[step]; step++;
+      if(it.kind==='tr'){
+        lastTrEl=renderTr(it, true);
+        var nxt=script[step];
+        if(nxt && nxt.kind==='surface'){
+          if(allows(nxt)){ step++; renderSurface(nxt, step); return; }
+          else { step++; return; }
+        }
+        return;
+      }
+      if(allows(it)){ renderSurface(it, step); return; }
+    }
+    trdot.classList.add('ended');
+    document.getElementById('advance').setAttribute('disabled','');
+    if(lastTrEl) lastTrEl.classList.remove('highlight');
+  }
+
+  // ── LLM Engine: poll for Berkie's response ────────────────────────────────────
+  async function pollForResponse(sentAt){
+    var deadline = Date.now() + 45000;
+    while(Date.now() < deadline){
+      await sleep(1800);
+      try {
+        var res = await fetch(API + '/messages/' + CONV_ID + '?sortBy=createdAt:desc&limit=10', {
+          headers: { Authorization: 'Bearer ' + jwt }
+        });
+        if(!res.ok) continue;
+        var data = await res.json();
+        var msgs = Array.isArray(data) ? data : (data.results || data.data || []);
+        for(var i=0; i<msgs.length; i++){
+          var m = msgs[i];
+          if(m.fromAgent && new Date(m.createdAt) > sentAt){
+            // body may be a plain string or a {text:...} object
+            var raw = m.body;
+            if (typeof raw === 'string') return raw;
+            if (raw && typeof raw === 'object') return raw.text || raw.content || JSON.stringify(raw);
+            return m.text || m.content || '';
+          }
+        }
+      } catch(e){ /* continue */ }
+    }
+    return null;
+  }
+
+  // ── Main user query flow ──────────────────────────────────────────────────────
+  async function askBerkie(text){
+    if(!text.trim() || waiting) return;
+    waiting = true;
+    renderUser(text.trim());
+
+    if(!jwt) await login();
+    if(!jwt){
+      renderBerkieText('<p>I’m not connected right now. Make sure LLM Engine is running (<code>yarn run dev</code> in the llm_engine directory) and try again.</p>');
+      waiting = false; return;
+    }
+
+    var thinkEl = renderThinking();
+    try {
+      var sentAt = new Date();
+      var sendRes = await fetch(API + '/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + jwt },
+        body: JSON.stringify({ body: text.trim(), conversation: CONV_ID })
+      });
+      if(!sendRes.ok){
+        var errText = await sendRes.text();
+        throw new Error('send failed (' + sendRes.status + '): ' + errText.slice(0, 120));
+      }
+
+      var responseText = await pollForResponse(sentAt);
+      thinkEl.remove();
+
+      if(responseText){
+        renderBerkieText('<p>' + mdToHtml(responseText) + '</p>');
+        var entryKey = matchEntry(text + ' ' + responseText);
+        if(entryKey && ENTRIES[entryKey]){
+          var idx = Date.now();
+          renderSurface(
+            { trigger:'prompted-implicit', entry: entryKey,
+              why:'From the archive wiki, grounding your question. Climb the levels to see how the abstraction is built.' },
+            idx,
+            ENTRIES[entryKey]
+          );
+        }
+      } else {
+        renderBerkieText('<p>I didn’t receive a response in time. The LLM Engine may be busy — try again in a moment.</p>');
+      }
+    } catch(e){
+      thinkEl.remove();
+      renderBerkieText('<p>Error: ' + esc(e.message) + '</p>');
+    }
+    waiting = false;
+  }
+
+  function reset(){
+    step=0; kept=[]; setaside=[]; lastTrEl=null; waiting=false;
+    thread.innerHTML=''; trbody.innerHTML=''; renderLedger();
+    trdot.classList.remove('ended'); document.getElementById('advance').removeAttribute('disabled');
+    renderBerkieText('<p>Hi! I’m Berkie. I’m grounded in the <b>BKC Archive Wiki</b> — an LLM-maintained layer over the Center’s curated feed. When I surface something, it opens at the <b>synthesis</b> level; use the <code>L1–L5</code> rungs to climb up to the catalog or down to the original source and the machine layer. Type <strong>/</strong> for commands.</p>');
+    advance();
+  }
+
+  // ── Wire up UI ────────────────────────────────────────────────────────────────
+  document.getElementById('advance').addEventListener('click', advance);
+  document.getElementById('reset').addEventListener('click', reset);
+  document.getElementById('send').addEventListener('click', function(){
+    var i=document.getElementById('ask'); askBerkie(i.value); i.value='';
+  });
+  document.getElementById('ask').addEventListener('keydown', function(e){
+    if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); askBerkie(this.value); this.value=''; }
+  });
+
+  // ── Bootstrap: auth + entries in parallel, then start ────────────────────────
+  Promise.all([login(), loadEntries()]).then(function(){ reset(); });
+
+})();
+</script>
+</body>
+</html>

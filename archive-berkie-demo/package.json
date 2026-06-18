@@ -1,0 +1,20 @@
+{
+  "name": "bkc-berkie-demo",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "setup": "node setup.mjs",
+    "prepare-wiki": "node scripts/prepare-wiki.mjs",
+    "build-entries": "node scripts/build-entries.mjs",
+    "pdfs": "node scripts/generate-pdfs.mjs",
+    "ingest": "node scripts/upload-pdfs.mjs",
+    "serve": "node serve.mjs",
+    "slack": "node slack-bot.mjs",
+    "prepare-archive": "node scripts/prepare-archive.mjs",
+    "all": "node scripts/prepare-archive.mjs && node scripts/generate-pdfs.mjs && node setup.mjs && node scripts/upload-pdfs.mjs"
+  },
+  "dependencies": {
+    "@slack/bolt": "^4.7.3",
+    "pdfkit": "^0.19.1"
+  }
+}

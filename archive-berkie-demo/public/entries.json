@@ -1,0 +1,1934 @@
+{
+  "ai-and-democracy": {
+    "slug": "ai-and-democracy",
+    "tag": "p-coral",
+    "tagLabel": "Topic · AI & Democracy",
+    "keywords": [
+      "and",
+      "democracy",
+      "threat",
+      "tool",
+      "for",
+      "governance",
+      "regulation",
+      "content",
+      "moderation",
+      "speech",
+      "chatbots",
+      "mental",
+      "health",
+      "digital",
+      "colonialism",
+      "global",
+      "south"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "AI & Democracy",
+      "gloss": "AI as threat to and tool for democracy",
+      "count": 14,
+      "neighbors": [
+        "AI Governance & Regulation",
+        "Content Moderation & Online Speech",
+        "AI Chatbots, Companions & Mental Health",
+        "Digital Colonialism & the Global South"
+      ]
+    },
+    "l2": "A two-sided debate runs through the archive: AI as <b>threat to</b> democracy\n(disinformation, an \"AI president,\" eroded electoral trust, technofeudalism) and AI\nas <b>tool for</b> democracy (deliberative democracy frameworks, civic tech, AI used to\n\"strengthen democracies worldwide\"). 2025 is a transition year — much of the early\nmaterial reflects on how AI shaped the 2024 global elections, while late-year items\nlook ahead to the <b>2026 US midterms</b> and to persuasion experiments pairing humans\nwith AI. BKC-adjacent voices (Bruce Schneier and Nathan Sanders) are prominent on the\nconstructive side; TechPolicy.Press supplies much of the critical, power-focused\nanalysis.",
+    "l2src": "topics/ai-and-democracy · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Persuading voters using human–artificial intelligence dialogues / Nature",
+        "d": "2025-12-06",
+        "dom": "nature.com",
+        "url": "https://www.nature.com/articles/s41586-025-09771-9.epdf?sharing_token=hj1rXjUfMzfajSiV3UhRLdRgN0jAjWel9jnR3ZoTv0Miw4o2bBToxxoxliDZtPwRrvtQI9U4gRDkyQu7qXiUwPPDR95gDRIMbkrv0V7bCBw3eaRohvbOmw6gNjtsOnwCymntI2sDruaWyp3XdGBt9oPQ3OBLmrEr0m4UiE3aThQ%3D"
+      },
+      {
+        "t": "Four ways AI is being used to strengthen democracies worldwide",
+        "d": "2025-11-24",
+        "dom": "theguardian.com",
+        "url": "https://www.theguardian.com/commentisfree/2025/nov/23/ai-use-strengthen-democracy"
+      },
+      {
+        "t": "How to build AI for democracy",
+        "d": "2025-12-01",
+        "dom": "contrarian.substack.com",
+        "url": "https://contrarian.substack.com/p/how-to-build-ai-for-democracy"
+      },
+      {
+        "t": "Will AI weaken democracy?",
+        "d": "2025-11-04",
+        "dom": "fastcompany.com",
+        "url": "https://www.fastcompany.com/91428050/ai-democracy-insights-to-remember"
+      },
+      {
+        "t": "How AI Could Drive the 2026 Midterm Elections",
+        "d": "2025-10-07",
+        "dom": "time.com",
+        "url": "https://time.com/7321098/ai-2026-midterm-elections/"
+      },
+      {
+        "t": "How to Prevent Our First A.I. President",
+        "d": "2025-09-19",
+        "dom": "nytimes.com",
+        "url": "https://www.nytimes.com/2025/09/17/opinion/altman-ai-constiutional-convention.html"
+      }
+    ],
+    "l4": {
+      "t": "Persuading voters using human–artificial intelligence dialogues / Nature",
+      "dom": "nature.com",
+      "d": "2025-12-06",
+      "tags": "",
+      "url": "https://www.nature.com/articles/s41586-025-09771-9.epdf?sharing_token=hj1rXjUfMzfajSiV3UhRLdRgN0jAjWel9jnR3ZoTv0Miw4o2bBToxxoxliDZtPwRrvtQI9U4gRDkyQu7qXiUwPPDR95gDRIMbkrv0V7bCBw3eaRohvbOmw6gNjtsOnwCymntI2sDruaWyp3XdGBt9oPQ3OBLmrEr0m4UiE3aThQ%3D"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"ai-and-democracy\",\n  \"type\": \"topic\",\n  \"title\": \"AI & Democracy\",\n  \"item_count\": 14,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"ai-governance-and-regulation\",\n    \"content-moderation-and-speech\",\n    \"ai-chatbots-and-mental-health\",\n    \"digital-colonialism-and-global-south\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/ai-and-democracy\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/ai-and-democracy.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "ai-and-the-environment": {
+    "slug": "ai-and-the-environment",
+    "tag": "p-coral",
+    "tagLabel": "Topic · AI & the Environment",
+    "keywords": [
+      "and",
+      "the",
+      "environment",
+      "data",
+      "center",
+      "energy",
+      "water",
+      "costs",
+      "labor",
+      "economy",
+      "platform",
+      "power",
+      "antitrust",
+      "digital",
+      "colonialism",
+      "global",
+      "south",
+      "governance",
+      "regulation"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "AI & the Environment",
+      "gloss": "data-center energy and water costs",
+      "count": 8,
+      "neighbors": [
+        "AI, Labor & the Economy",
+        "Platform Power & Antitrust",
+        "Digital Colonialism & the Global South",
+        "AI Governance & Regulation"
+      ]
+    },
+    "l2": "A smaller but sharply-defined 2025 thread on the <b>physical footprint</b> of the AI\nboom: the energy and water demands of data centers, and the local communities\nabsorbing the cost. The framing tightens over the year — from \"how much power does AI\nconsume?\" to concrete siting conflicts (\"the precedent is Flint\" on Oregon's water\ncrisis) and the politics of building data centers on federal land. Resource-extraction\nframings (lithium/copper mining, \"the cloud is dead\") connect this topic to\ndigital colonialism and global south and to the extraction thesis in\nai labor and economy.",
+    "l2src": "topics/ai-and-the-environment · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "How Much Power Does AI Consume?",
+        "d": "2025-09-30",
+        "dom": "nybooks.com",
+        "url": "https://www.nybooks.com/online/2025/09/27/the-costs-of-the-cloud/"
+      },
+      {
+        "t": "Rising AI demand is outpacing energy supply worldwide",
+        "d": "2025-09-15",
+        "dom": "restofworld.org",
+        "url": "https://restofworld.org/2025/ai-energy-supply-data-centers/"
+      },
+      {
+        "t": "'The precedent is Flint': How Oregon's data center boom is supercharging a water crisis",
+        "d": "2025-12-03",
+        "dom": "thefern.org",
+        "url": "https://thefern.org/2025/11/the-precedent-is-flint-how-oregons-data-center-boom-is-supercharging-a-water-crisis/"
+      },
+      {
+        "t": "Trump's Plans to Build AI Data Centers on Federal Land",
+        "d": "2025-04-08",
+        "dom": "heatmap.news",
+        "url": "https://heatmap.news/energy/doe-data-centers-memo"
+      },
+      {
+        "t": "Climate Obstruction Report",
+        "d": "2025-02-04",
+        "dom": "mediatechdemocracy.com",
+        "url": "https://www.mediatechdemocracy.com/climate-obstruction-report"
+      },
+      {
+        "t": "Indigenous Chileans resist AI-fueled copper and lithium mining",
+        "d": "2025-05-27",
+        "dom": "restofworld.org",
+        "url": "https://restofworld.org/2025/ai-resource-extraction-chile-indigenous-communities/"
+      }
+    ],
+    "l4": {
+      "t": "How Much Power Does AI Consume?",
+      "dom": "nybooks.com",
+      "d": "2025-09-30",
+      "tags": "",
+      "url": "https://www.nybooks.com/online/2025/09/27/the-costs-of-the-cloud/"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"ai-and-the-environment\",\n  \"type\": \"topic\",\n  \"title\": \"AI & the Environment\",\n  \"item_count\": 8,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"ai-labor-and-economy\",\n    \"platform-power-and-antitrust\",\n    \"digital-colonialism-and-global-south\",\n    \"ai-governance-and-regulation\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/ai-and-the-environment\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/ai-and-the-environment.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "ai-chatbots-and-mental-health": {
+    "slug": "ai-chatbots-and-mental-health",
+    "tag": "p-coral",
+    "tagLabel": "Topic · AI Chatbots, Companions & Mental Health",
+    "keywords": [
+      "chatbots",
+      "and",
+      "mental",
+      "health",
+      "companions",
+      "chatbot",
+      "harms",
+      "epistemics",
+      "content",
+      "moderation",
+      "speech",
+      "democracy",
+      "safety",
+      "agents",
+      "copyright",
+      "knowledge"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "AI Chatbots, Companions & Mental Health",
+      "gloss": "chatbot harms and epistemics",
+      "count": 12,
+      "neighbors": [
+        "Content Moderation & Online Speech",
+        "AI & Democracy",
+        "AI Safety, Risk & Agents",
+        "AI, Copyright & Knowledge Institutions"
+      ]
+    },
+    "l2": "The archive's most human-facing AI thread, and one of its most urgent in 2025. Items\ncluster around <b>chatbots as companions and quasi-therapists</b> — and the harms that\nfollow: a suicidal teen confiding in ChatGPT, therapists covertly using it mid-session,\nchatbots framed as \"the friend that isn't,\" and warnings about lonely users and\nchildren. A regulatory response is forming (age-assurance laws meeting chatbots; \"AI\nchatbots are not therapists, reducing harm requires regulation\"), linking to\nai governance and regulation. A second strand worries about <b>epistemics</b> — \"AI\nslop,\" deepfakes \"eroding our shared reality,\" and what people actually use ChatGPT\nfor. The Harvard Law School \"chatbot may be the friend that isn't\" item is tagged\n`bkc-happenings`.",
+    "l2src": "topics/ai-chatbots-and-mental-health · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "A Teen Was Suicidal. ChatGPT Was the Friend He Confided In",
+        "d": "2025-08-28",
+        "dom": "nytimes.com",
+        "url": "https://www.nytimes.com/2025/08/26/technology/chatgpt-openai-suicide.html"
+      },
+      {
+        "t": "Your chatbot may be the friend that isn't",
+        "d": "2025-10-30",
+        "dom": "hls.harvard.edu",
+        "url": "https://hls.harvard.edu/today/your-chatbot-may-be-the-friend-that-isnt/"
+      },
+      {
+        "t": "Therapists are secretly using ChatGPT during sessions",
+        "d": "2025-09-03",
+        "dom": "technologyreview.com",
+        "url": "https://www.technologyreview.com/2025/09/02/1122871/therapists-using-chatgpt-secretly/"
+      },
+      {
+        "t": "AI Chatbots Are Not Therapists. Reducing Harm Requires Regulation",
+        "d": "2025-09-21",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/ai-chatbots-are-not-therapists-reducing-harm-requires-regulation/"
+      },
+      {
+        "t": "When Age Assurance Laws Meet Chatbots",
+        "d": "2025-09-09",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/when-age-assurance-laws-meet-chatbots/"
+      },
+      {
+        "t": "Stanford Researchers Say No Kid Under 18 Should Be Using AI Chatbot Companions",
+        "d": "2025-04-30",
+        "dom": "futurism.com",
+        "url": "https://futurism.com/stanford-no-kid-under-18-ai-chatbot-companions"
+      }
+    ],
+    "l4": {
+      "t": "A Teen Was Suicidal. ChatGPT Was the Friend He Confided In",
+      "dom": "nytimes.com",
+      "d": "2025-08-28",
+      "tags": "",
+      "url": "https://www.nytimes.com/2025/08/26/technology/chatgpt-openai-suicide.html"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"ai-chatbots-and-mental-health\",\n  \"type\": \"topic\",\n  \"title\": \"AI Chatbots, Companions & Mental Health\",\n  \"item_count\": 12,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"content-moderation-and-speech\",\n    \"ai-and-democracy\",\n    \"ai-safety-and-agents\",\n    \"ai-copyright-and-knowledge\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/ai-chatbots-and-mental-health\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/ai-chatbots-and-mental-health.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "ai-copyright-and-knowledge": {
+    "slug": "ai-copyright-and-knowledge",
+    "tag": "p-coral",
+    "tagLabel": "Topic · AI, Copyright & Knowledge Institutions",
+    "keywords": [
+      "copyright",
+      "and",
+      "knowledge",
+      "institutions",
+      "journalism",
+      "libraries",
+      "content",
+      "moderation",
+      "speech",
+      "chatbots",
+      "mental",
+      "health",
+      "platform",
+      "power",
+      "antitrust",
+      "labor",
+      "economy"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "AI, Copyright & Knowledge Institutions",
+      "gloss": "copyright, journalism, libraries",
+      "count": 11,
+      "neighbors": [
+        "Content Moderation & Online Speech",
+        "AI Chatbots, Companions & Mental Health",
+        "Platform Power & Antitrust",
+        "AI, Labor & the Economy"
+      ]
+    },
+    "l2": "How AI is reshaping the institutions that make and keep knowledge — **copyright,\njournalism, and libraries<b>. The 2025 legal spine is the </b>Anthropic settlement** and\na SCOTUS amicus brief on copyright & AI, alongside research extracting memorized\ncopyrighted books from open-weight models. A second strand defends **knowledge\ninstitutions** as more important in a \"post-authenticity AI age\": the \"war on\nlibraries,\" AI-and-historical-newspapers, and Harvard's Library Innovation Lab work on\ndatasets. A third tracks <b>journalism's</b> struggle — \"journalism minus the journalist,\"\nnewsrooms vs. AI scraping, and dedicated AI-journalism fellowships. Connects to the\nepistemics worries in ai chatbots and mental health.",
+    "l2src": "topics/ai-copyright-and-knowledge · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "3 Problems with the Anthropic Settlement",
+        "d": "2025-09-09",
+        "dom": "plagiarismtoday.com",
+        "url": "https://www.plagiarismtoday.com/2025/09/08/3-problems-with-the-anthropic-settlement/"
+      },
+      {
+        "t": "SCOTUS Amicus Brief on copyright & AI",
+        "d": "2025-12-08",
+        "dom": "supremecourt.gov",
+        "url": "https://www.supremecourt.gov/DocketPDF/25/25-449/383269/20251031153728121_25-449%20Amicus%20Brief.pdf"
+      },
+      {
+        "t": "Extracting memorized pieces of (copyrighted) books from open-weight LMs",
+        "d": "2025-06-17",
+        "dom": "arxiv.org",
+        "url": "https://arxiv.org/abs/2505.12546"
+      },
+      {
+        "t": "Global Copyright Risks for AI Training",
+        "d": "2025-09-16",
+        "dom": "thefai.org",
+        "url": "https://www.thefai.org/posts/global-copyright-risks-for-ai-training"
+      },
+      {
+        "t": "Public Opinions About Copyright for AI-Generated Art",
+        "d": "2025-09-08",
+        "dom": "dl.acm.org",
+        "url": "https://dl.acm.org/doi/10.1145/3706598.3713338"
+      },
+      {
+        "t": "AI Is Supercharging the War on Libraries, Education, and Human Knowledge",
+        "d": "2025-11-17",
+        "dom": "404media.co",
+        "url": "https://www.404media.co/ai-is-supercharging-the-war-on-libraries-education-and-human-knowledge/"
+      }
+    ],
+    "l4": {
+      "t": "3 Problems with the Anthropic Settlement",
+      "dom": "plagiarismtoday.com",
+      "d": "2025-09-09",
+      "tags": "",
+      "url": "https://www.plagiarismtoday.com/2025/09/08/3-problems-with-the-anthropic-settlement/"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"ai-copyright-and-knowledge\",\n  \"type\": \"topic\",\n  \"title\": \"AI, Copyright & Knowledge Institutions\",\n  \"item_count\": 11,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"content-moderation-and-speech\",\n    \"ai-chatbots-and-mental-health\",\n    \"platform-power-and-antitrust\",\n    \"ai-labor-and-economy\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/ai-copyright-and-knowledge\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/ai-copyright-and-knowledge.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "ai-governance-and-regulation": {
+    "slug": "ai-governance-and-regulation",
+    "tag": "p-coral",
+    "tagLabel": "Topic · AI Governance & Regulation",
+    "keywords": [
+      "governance",
+      "and",
+      "regulation",
+      "the",
+      "state",
+      "federal",
+      "regulatory",
+      "tug",
+      "war",
+      "democracy",
+      "platform",
+      "power",
+      "antitrust",
+      "safety",
+      "agents",
+      "labor",
+      "economy"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "AI Governance & Regulation",
+      "gloss": "the state-vs-federal regulatory tug-of-war",
+      "count": 12,
+      "neighbors": [
+        "AI & Democracy",
+        "Platform Power & Antitrust",
+        "AI Safety, Risk & Agents",
+        "AI, Labor & the Economy"
+      ]
+    },
+    "l2": "The archive's single largest 2025 thread. The dominant US story is a fight over\n<b>who gets to regulate AI</b> — a proposed federal moratorium on state-level rules\nversus California's <b>SB 53</b> transparency law — set against a Trump administration\npushing deregulation and a leaked AI executive order framed by critics as a \"Big Tech\npower grab.\" A parallel international story tracks <b>EU divergence</b>: the Digital\nOmnibus rollback and EU-vs-US comparisons of how to discipline Big Tech. A recurring\nanalytic move across these sources is to reject the \"regulation vs. innovation\"\nframing as a false binary and to read deregulation as itself a policy choice that\nreallocates corporate power.",
+    "l2src": "topics/ai-governance-and-regulation · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Against the Federal Moratorium on State-Level Regulation of AI",
+        "d": "2025-12-12",
+        "dom": "gizmodo.com",
+        "url": "https://gizmodo.com/against-the-federal-moratorium-on-state-level-regulation-of-ai-2000698390"
+      },
+      {
+        "t": "What the leaked AI executive order tells us about the Big Tech power grab",
+        "d": "2025-12-03",
+        "dom": "theverge.com",
+        "url": "https://www.theverge.com/column/829938/leaked-ai-executive-order-analysis"
+      },
+      {
+        "t": "SB 53, the landmark AI transparency bill, is now law in California",
+        "d": "2025-10-01",
+        "dom": "theverge.com",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/787918/sb-53-the-landmark-ai-transparency-bill-is-now-law-in-california"
+      },
+      {
+        "t": "Don't be fooled. The US is regulating AI – just not the way you think",
+        "d": "2025-10-23",
+        "dom": "theguardian.com",
+        "url": "https://www.theguardian.com/commentisfree/2025/oct/23/us-artificial-intelligence-regulations"
+      },
+      {
+        "t": "How to regulate artificial intelligence — Harvard Gazette",
+        "d": "2025-10-08",
+        "dom": "news.harvard.edu",
+        "url": "https://news.harvard.edu/gazette/story/2025/09/how-to-regulate-artificial-intelligence-ai/"
+      },
+      {
+        "t": "AI Regulation Versus AI Innovation: A Fake Dichotomy",
+        "d": "2025-04-18",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/ai-regulation-versus-ai-innovation-a-fake-dichotomy/"
+      }
+    ],
+    "l4": {
+      "t": "Against the Federal Moratorium on State-Level Regulation of AI",
+      "dom": "gizmodo.com",
+      "d": "2025-12-12",
+      "tags": "",
+      "url": "https://gizmodo.com/against-the-federal-moratorium-on-state-level-regulation-of-ai-2000698390"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"ai-governance-and-regulation\",\n  \"type\": \"topic\",\n  \"title\": \"AI Governance & Regulation\",\n  \"item_count\": 12,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"ai-and-democracy\",\n    \"platform-power-and-antitrust\",\n    \"ai-safety-and-agents\",\n    \"ai-labor-and-economy\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/ai-governance-and-regulation\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/ai-governance-and-regulation.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "ai-labor-and-economy": {
+    "slug": "ai-labor-and-economy",
+    "tag": "p-coral",
+    "tagLabel": "Topic · AI, Labor & the Economy",
+    "keywords": [
+      "labor",
+      "and",
+      "economy",
+      "the",
+      "jobs",
+      "workslop",
+      "bubble",
+      "platform",
+      "power",
+      "antitrust",
+      "digital",
+      "colonialism",
+      "global",
+      "south",
+      "governance",
+      "regulation",
+      "safety",
+      "agents"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "AI, Labor & the Economy",
+      "gloss": "jobs, \"workslop,\" the AI bubble",
+      "count": 12,
+      "neighbors": [
+        "Platform Power & Antitrust",
+        "Digital Colonialism & the Global South",
+        "AI Governance & Regulation",
+        "AI Safety, Risk & Agents"
+      ]
+    },
+    "l2": "Two intertwined anxieties dominate: <b>jobs</b> and the <b>bubble</b>. On labor, the archive\ntracks AI eating entry-level work, coders' jobs degraded toward \"warehouse work,\"\n\"workslop\" destroying productivity, and AI workers warning their own families away\nfrom the tools. On macro-economics, recurring pieces frame an <b>AI bubble</b> and warn\nthe public may end up \"bailing out\" the AI business, with venture capital\n\"cannibalizing the economy.\" Tim Wu's <i>Age of Extraction</i> supplies the synthesizing\nframe — concentrated platform power extracting value — and connects this topic to\nplatform power and antitrust. The hidden-labor angle (African data workers, Kenyan\n\"digital dirty work\") links to digital colonialism and global south.",
+    "l2src": "topics/ai-labor-and-economy · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "What Is Gen Z Supposed to Do When AI Takes Entry-Level Jobs?",
+        "d": "2025-11-13",
+        "dom": "nymag.com",
+        "url": "https://nymag.com/intelligencer/article/ai-replacing-entry-level-jobs-gen-z-careers.html"
+      },
+      {
+        "t": "At Amazon, Some Coders Say Their Jobs Resemble Warehouse Work",
+        "d": "2025-05-28",
+        "dom": "nytimes.com",
+        "url": "https://www.nytimes.com/2025/05/25/business/amazon-ai-coders.html"
+      },
+      {
+        "t": "AI-Generated \"Workslop\" Is Destroying Productivity",
+        "d": "2025-09-22",
+        "dom": "hbr.org",
+        "url": "https://hbr.org/2025/09/ai-generated-workslop-is-destroying-productivity"
+      },
+      {
+        "t": "Meet the AI workers who tell their friends and family to stay away from AI",
+        "d": "2025-11-24",
+        "dom": "theguardian.com",
+        "url": "https://www.theguardian.com/technology/2025/nov/22/ai-workers-tell-family-stay-away"
+      },
+      {
+        "t": "AI Is the Bubble to Burst Them All",
+        "d": "2025-10-27",
+        "dom": "wired.com",
+        "url": "https://www.wired.com/story/ai-bubble-will-burst/"
+      },
+      {
+        "t": "You May Already Be Bailing Out the AI Business",
+        "d": "2025-11-14",
+        "dom": "wsj.com",
+        "url": "https://www.wsj.com/opinion/you-may-already-be-bailing-out-the-ai-business-dd67d452"
+      }
+    ],
+    "l4": {
+      "t": "What Is Gen Z Supposed to Do When AI Takes Entry-Level Jobs?",
+      "dom": "nymag.com",
+      "d": "2025-11-13",
+      "tags": "",
+      "url": "https://nymag.com/intelligencer/article/ai-replacing-entry-level-jobs-gen-z-careers.html"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"ai-labor-and-economy\",\n  \"type\": \"topic\",\n  \"title\": \"AI, Labor & the Economy\",\n  \"item_count\": 12,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"platform-power-and-antitrust\",\n    \"digital-colonialism-and-global-south\",\n    \"ai-governance-and-regulation\",\n    \"ai-safety-and-agents\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/ai-labor-and-economy\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/ai-labor-and-economy.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "ai-safety-and-agents": {
+    "slug": "ai-safety-and-agents",
+    "tag": "p-coral",
+    "tagLabel": "Topic · AI Safety, Risk & Agents",
+    "keywords": [
+      "safety",
+      "and",
+      "agents",
+      "risk",
+      "agentic",
+      "frontier",
+      "skeptically",
+      "read",
+      "governance",
+      "regulation",
+      "chatbots",
+      "mental",
+      "health",
+      "labor",
+      "economy",
+      "platform",
+      "power",
+      "antitrust"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "AI Safety, Risk & Agents",
+      "gloss": "agentic AI and frontier risk, skeptically read",
+      "count": 11,
+      "neighbors": [
+        "AI Governance & Regulation",
+        "AI Chatbots, Companions & Mental Health",
+        "AI, Labor & the Economy",
+        "Platform Power & Antitrust"
+      ]
+    },
+    "l2": "Where the archive engages the frontier-risk and technical-governance conversation —\nthough notably through a <b>skeptical, institution-focused</b> lens rather than a\ndoomer one. The signature 2025 development is the rise of <b>agentic AI</b> and the\nquestion of how to govern autonomous agents (regulating their \"agency,\" the \"OODA\nloop problem,\" autonomous AI hacking). The International AI Safety Report tracks\ncapabilities and risk; arXiv preprints supply frontier-risk methods. Running\nalongside is a strand of <b>satire and critique</b> of the alignment industry itself\n(the recurring alignmentalignment.ai items, also tagged `bkc-happenings`), and debate\nover whether frontier AI \"should be open-source.\"",
+    "l2src": "topics/ai-safety-and-agents · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Regulating the Agency of LLM-based Agents",
+        "d": "2025-09-30",
+        "dom": "arxiv.org",
+        "url": "https://arxiv.org/abs/2509.22735"
+      },
+      {
+        "t": "Agentic AI's OODA Loop Problem",
+        "d": "2025-10-14",
+        "dom": "computer.org",
+        "url": "https://www.computer.org/csdl/magazine/sp/5555/01/11194053/2aB2Rf5nZ0k"
+      },
+      {
+        "t": "Autonomous AI hacking and the future of cybersecurity",
+        "d": "2025-10-08",
+        "dom": "csoonline.com",
+        "url": "https://www.csoonline.com/article/4069075/autonomous-ai-hacking-and-the-future-of-cybersecurity.html"
+      },
+      {
+        "t": "First Key Update: Capabilities and Risk Implications / International AI Safety Report",
+        "d": "2025-10-24",
+        "dom": "internationalaisafetyreport.org",
+        "url": "https://internationalaisafetyreport.org/publication/first-key-update-capabilities-and-risk-implications"
+      },
+      {
+        "t": "Dark Speculation: Qualitative & Quantitative Understanding in Frontier AI Risk Analysis",
+        "d": "2025-12-01",
+        "dom": "arxiv.org",
+        "url": "https://arxiv.org/abs/2511.21838"
+      },
+      {
+        "t": "Rethinking — and reframing — superintelligence",
+        "d": "2025-12-15",
+        "dom": "news.harvard.edu",
+        "url": "https://news.harvard.edu/gazette/story/2025/12/rethinking-and-reframing-superintelligence/"
+      }
+    ],
+    "l4": {
+      "t": "Regulating the Agency of LLM-based Agents",
+      "dom": "arxiv.org",
+      "d": "2025-09-30",
+      "tags": "",
+      "url": "https://arxiv.org/abs/2509.22735"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"ai-safety-and-agents\",\n  \"type\": \"topic\",\n  \"title\": \"AI Safety, Risk & Agents\",\n  \"item_count\": 11,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"ai-governance-and-regulation\",\n    \"ai-chatbots-and-mental-health\",\n    \"ai-labor-and-economy\",\n    \"platform-power-and-antitrust\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/ai-safety-and-agents\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/ai-safety-and-agents.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "content-moderation-and-speech": {
+    "slug": "content-moderation-and-speech",
+    "tag": "p-coral",
+    "tagLabel": "Topic · Content Moderation & Online Speech",
+    "keywords": [
+      "content",
+      "moderation",
+      "and",
+      "speech",
+      "online",
+      "tiktok",
+      "meta",
+      "the",
+      "first",
+      "amendment",
+      "democracy",
+      "surveillance",
+      "immigration",
+      "tech",
+      "platform",
+      "power",
+      "antitrust",
+      "copyright",
+      "knowledge"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "Content Moderation & Online Speech",
+      "gloss": "TikTok, Meta, the First Amendment",
+      "count": 13,
+      "neighbors": [
+        "AI & Democracy",
+        "Surveillance & Immigration Tech",
+        "Platform Power & Antitrust",
+        "AI, Copyright & Knowledge Institutions"
+      ]
+    },
+    "l2": "The archive's long-running platform-governance beat, anchored in 2025 by two events:\nthe <b>US Supreme Court's TikTok ruling</b> and <b>Meta's retreat from fact-checking</b>.\nRecurring sub-threads: First Amendment doctrine and \"chilling effects\" (heavily via\nthe Knight First Amendment Institute), the migration to open networks like <b>Bluesky</b>\nand its trust-and-safety growing pains, and the use of <b>LLMs for moderation</b> itself.\nA darker 2025 turn is the weaponization of moderation and visa policy against\nspeech — Trump's visa restrictions targeting content-moderation workers, and AI used\nto hunt activists. evelyn douek is the recurring scholarly voice on what's\nhappening to the First Amendment online.",
+    "l2src": "topics/content-moderation-and-speech · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "The US supreme court's TikTok ruling is a scandal",
+        "d": "2025-12-15",
+        "dom": "theguardian.com",
+        "url": "https://www.theguardian.com/commentisfree/2025/dec/15/supreme-court-tiktok-ruling"
+      },
+      {
+        "t": "The Difference Between TikTok and Free Expression",
+        "d": "2025-12-08",
+        "dom": "theatlantic.com",
+        "url": "https://www.theatlantic.com/ideas/archive/2025/01/difference-between-tiktok-and-free-expression/681375/"
+      },
+      {
+        "t": "Meta's Move to End Fact Checking",
+        "d": "2025-02-05",
+        "dom": "truethirty.substack.com",
+        "url": "https://truethirty.substack.com/p/why-fact-checking-matters-with-fay"
+      },
+      {
+        "t": "The Science of Chilling Effects",
+        "d": "2025-11-11",
+        "dom": "knightcolumbia.org",
+        "url": "https://knightcolumbia.org/events/the-science-of-chilling-effects"
+      },
+      {
+        "t": "Into the Driver's Seat With Social Media Content Feeds",
+        "d": "2025-03-06",
+        "dom": "knightcolumbia.org",
+        "url": "https://knightcolumbia.org/content/into-the-drivers-seat-with-social-media-content-feeds"
+      },
+      {
+        "t": "Researchers Explore the Use of LLMs for Content Moderation",
+        "d": "2025-11-03",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/researchers-explore-the-use-of-llms-for-content-moderation/"
+      }
+    ],
+    "l4": {
+      "t": "The US supreme court's TikTok ruling is a scandal",
+      "dom": "theguardian.com",
+      "d": "2025-12-15",
+      "tags": "",
+      "url": "https://www.theguardian.com/commentisfree/2025/dec/15/supreme-court-tiktok-ruling"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"content-moderation-and-speech\",\n  \"type\": \"topic\",\n  \"title\": \"Content Moderation & Online Speech\",\n  \"item_count\": 13,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"ai-and-democracy\",\n    \"surveillance-and-immigration-tech\",\n    \"platform-power-and-antitrust\",\n    \"ai-copyright-and-knowledge\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/content-moderation-and-speech\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/content-moderation-and-speech.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "digital-colonialism-and-global-south": {
+    "slug": "digital-colonialism-and-global-south",
+    "tag": "p-coral",
+    "tagLabel": "Topic · Digital Colonialism & the Global South",
+    "keywords": [
+      "digital",
+      "colonialism",
+      "and",
+      "global",
+      "south",
+      "the",
+      "archive",
+      "distinctive",
+      "lens",
+      "labor",
+      "economy",
+      "platform",
+      "power",
+      "antitrust",
+      "environment",
+      "democracy"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "Digital Colonialism & the Global South",
+      "gloss": "the archive's distinctive global lens",
+      "count": 13,
+      "neighbors": [
+        "AI, Labor & the Economy",
+        "Platform Power & Antitrust",
+        "AI & the Environment",
+        "AI & Democracy"
+      ]
+    },
+    "l2": "A distinctive emphasis of this archive — far heavier on <b>non-Western perspectives</b>\nthan a typical US tech-policy feed, reflecting BKC's global network. The core claim,\nsharpened by \"The AI Raj: how tech giants are recolonizing power,\" is that the AI\neconomy reproduces colonial relations: dependence on foreign (US/Chinese) AI, hidden\nAfrican data labor, extraction of land and minerals, and \"digital colonialism\" in\nhealth messaging. A counter-current documents <b>Global South agency</b> — Latin\nAmerica's \"quiet leadership,\" India's talent looking beyond the US, sovereign-tech and\ndigital-commons initiatives, and internet fragmentation as resistance as well as\nthreat. Rest of World is the workhorse source here; Mailyn Fidler recurs on\nfragmentation.",
+    "l2src": "topics/digital-colonialism-and-global-south · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "The AI Raj: How tech giants are recolonizing power",
+        "d": "2025-09-15",
+        "dom": "thebulletin.org",
+        "url": "https://thebulletin.org/2025/09/the-ai-raj-how-tech-giants-are-recolonizing-power/"
+      },
+      {
+        "t": "'Data Colonialism' and the Political Economy of Big Tech",
+        "d": "2025-03-11",
+        "dom": "lawfaremedia.org",
+        "url": "https://www.lawfaremedia.org/article/data-colonialism--and-the-political-economy-of-big-tech"
+      },
+      {
+        "t": "How Big Tech's AI labor supply chain relies on hidden African workers",
+        "d": "2025-04-21",
+        "dom": "restofworld.org",
+        "url": "https://restofworld.org/2025/big-tech-ai-labor-supply-chain-african-workers/"
+      },
+      {
+        "t": "In Kenya's slums, they're doing our digital dirty work",
+        "d": "2025-05-06",
+        "dom": "codastory.com",
+        "url": "https://www.codastory.com/authoritarian-tech/the-hidden-workers-who-train-ai-from-kenyas-slums/"
+      },
+      {
+        "t": "Lessons from Nigeria and Kenya on Digital Colonialism in AI Health Messaging",
+        "d": "2025-10-08",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/lessons-from-nigeria-and-kenya-on-digital-colonialism-in-ai-health-messaging/"
+      },
+      {
+        "t": "Against the Odds: Latin America's Quiet Leadership in the Age of AI",
+        "d": "2025-09-19",
+        "dom": "revista.drclas.harvard.edu",
+        "url": "https://revista.drclas.harvard.edu/against-the-odds-latin-americas-quiet-leadership-in-the-age-of-ai/"
+      }
+    ],
+    "l4": {
+      "t": "The AI Raj: How tech giants are recolonizing power",
+      "dom": "thebulletin.org",
+      "d": "2025-09-15",
+      "tags": "",
+      "url": "https://thebulletin.org/2025/09/the-ai-raj-how-tech-giants-are-recolonizing-power/"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"digital-colonialism-and-global-south\",\n  \"type\": \"topic\",\n  \"title\": \"Digital Colonialism & the Global South\",\n  \"item_count\": 13,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"ai-labor-and-economy\",\n    \"platform-power-and-antitrust\",\n    \"ai-and-the-environment\",\n    \"ai-and-democracy\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/digital-colonialism-and-global-south\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/digital-colonialism-and-global-south.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "platform-power-and-antitrust": {
+    "slug": "platform-power-and-antitrust",
+    "tag": "p-coral",
+    "tagLabel": "Topic · Platform Power & Antitrust",
+    "keywords": [
+      "platform",
+      "power",
+      "and",
+      "antitrust",
+      "concentration",
+      "the",
+      "cloud",
+      "oligopoly",
+      "governance",
+      "regulation",
+      "labor",
+      "economy",
+      "digital",
+      "colonialism",
+      "global",
+      "south",
+      "content",
+      "moderation",
+      "speech"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "Platform Power & Antitrust",
+      "gloss": "concentration, antitrust, the cloud oligopoly",
+      "count": 11,
+      "neighbors": [
+        "AI Governance & Regulation",
+        "AI, Labor & the Economy",
+        "Digital Colonialism & the Global South",
+        "Content Moderation & Online Speech"
+      ]
+    },
+    "l2": "The structural-power lens: market concentration, antitrust enforcement, and control of\ncritical digital infrastructure. 2025's pivot point is **Meta winning its monopoly\ntrial** (and what that \"reveals about cracks in antitrust enforcement\"), alongside the\n<b>US v. Google</b> generative-AI remedy debate and Europe's first <b>DMA</b> fines against\nApple and Meta. A deeper structural strand targets the <b>cloud oligopoly</b> — scrutiny\nof Google/Microsoft/Amazon investments, \"engineering the cloud commons,\" and\nantimonopoly approaches to AI. Tim Wu's <i>Age of Extraction</i> is the connective thesis\nlinking concentration to the labor and value-capture concerns in\nai labor and economy.",
+    "l2src": "topics/platform-power-and-antitrust · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Meta wins monopoly trial",
+        "d": "2025-11-18",
+        "dom": "arstechnica.com",
+        "url": "https://arstechnica.com/tech-policy/2025/11/meta-wins-monopoly-trial-convinces-judge-that-social-networking-is-dead/"
+      },
+      {
+        "t": "Meta victory reveals cracks in antitrust enforcement",
+        "d": "2025-12-03",
+        "dom": "compiler.news",
+        "url": "https://www.compiler.news/meta-ftc-monopoly/"
+      },
+      {
+        "t": "Decision in US vs. Google Gets it Wrong on Generative AI",
+        "d": "2025-09-18",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/decision-in-us-vs-google-gets-it-wrong-on-generative-ai/"
+      },
+      {
+        "t": "Apple and Meta hit with the EU's first DMA antitrust fines",
+        "d": "2025-04-29",
+        "dom": "theverge.com",
+        "url": "https://www.theverge.com/news/627522/apple-meta-eu-dma-antitrust-fines"
+      },
+      {
+        "t": "Antimonopoly and Artificial Intelligence",
+        "d": "2025-04-29",
+        "dom": "lpeproject.org",
+        "url": "https://lpeproject.org/blog/antimonopoly-and-artificial-intelligence/"
+      },
+      {
+        "t": "How Big Cloud becomes Bigger: Scrutinizing Google, Microsoft, and Amazon's investments",
+        "d": "2025-12-15",
+        "dom": "papers.ssrn.com",
+        "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5377426"
+      }
+    ],
+    "l4": {
+      "t": "Meta wins monopoly trial",
+      "dom": "arstechnica.com",
+      "d": "2025-11-18",
+      "tags": "",
+      "url": "https://arstechnica.com/tech-policy/2025/11/meta-wins-monopoly-trial-convinces-judge-that-social-networking-is-dead/"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"platform-power-and-antitrust\",\n  \"type\": \"topic\",\n  \"title\": \"Platform Power & Antitrust\",\n  \"item_count\": 11,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"ai-governance-and-regulation\",\n    \"ai-labor-and-economy\",\n    \"digital-colonialism-and-global-south\",\n    \"content-moderation-and-speech\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/platform-power-and-antitrust\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/platform-power-and-antitrust.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "surveillance-and-immigration-tech": {
+    "slug": "surveillance-and-immigration-tech",
+    "tag": "p-coral",
+    "tagLabel": "Topic · Surveillance & Immigration Tech",
+    "keywords": [
+      "surveillance",
+      "and",
+      "immigration",
+      "tech",
+      "ice",
+      "spyware",
+      "facial",
+      "recognition",
+      "content",
+      "moderation",
+      "speech",
+      "chatbots",
+      "mental",
+      "health",
+      "platform",
+      "power",
+      "antitrust",
+      "governance",
+      "regulation"
+    ],
+    "l1": {
+      "kind": "topic",
+      "label": "Surveillance & Immigration Tech",
+      "gloss": "ICE, spyware, facial recognition",
+      "count": 14,
+      "neighbors": [
+        "Content Moderation & Online Speech",
+        "AI Chatbots, Companions & Mental Health",
+        "Platform Power & Antitrust",
+        "AI Governance & Regulation"
+      ]
+    },
+    "l2": "One of the most concentrated and alarmed threads of 2025: the build-out of a US\n<b>domestic surveillance apparatus</b>, with <b>ICE</b> as the recurring protagonist —\nfacial recognition (Clearview AI), bulk phone-location tracking, a central database\nfusing health/labor/housing data, and a \"social media panopticon.\" Adjacent items\ncover commercial <b>spyware</b> (Paragon), the far-right politics behind the underlying\ntech, and DOGE's construction of a surveillance state. 404 Media and Mother Jones do\nmuch of the investigative reporting; the <b>Harvard Cyberlaw Clinic</b> appears directly,\nrepresenting advocates and researchers in social-media-surveillance litigation. The\nthrough-line: surveillance infrastructure built for one purpose is rapidly\nrepurposed against immigrants and dissenters.",
+    "l2src": "topics/surveillance-and-immigration-tech · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "ICE to Buy Tool that Tracks Locations of Hundreds of Millions of Phones",
+        "d": "2025-10-01",
+        "dom": "404media.co",
+        "url": "https://www.404media.co/email/0ba0f6a2-9195-4ced-9c40-92bb72367e7a/"
+      },
+      {
+        "t": "ICE is building a social media panopticon",
+        "d": "2025-11-03",
+        "dom": "theverge.com",
+        "url": "https://www.theverge.com/policy/806425/ice-social-media-surveillance-free-speech-assault"
+      },
+      {
+        "t": "ICE and CBP Agents Are Scanning People's Faces on the Street",
+        "d": "2025-10-29",
+        "dom": "404media.co",
+        "url": "https://www.404media.co/ice-and-cbp-agents-are-scanning-peoples-faces-on-the-street-to-verify-citizenship/"
+      },
+      {
+        "t": "ICE Spends Millions on Clearview AI Facial Recognition",
+        "d": "2025-09-08",
+        "dom": "404media.co",
+        "url": "https://www.404media.co/ice-spends-millions-on-clearview-ai-face-recognition-to-find-people-assaulting-officers/"
+      },
+      {
+        "t": "ICE Plans Central Database of Health, Labor, Housing Agency Data",
+        "d": "2025-04-22",
+        "dom": "404media.co",
+        "url": "https://www.404media.co/ice-plans-central-database-of-health-labor-housing-agency-data-to-find-targets/"
+      },
+      {
+        "t": "The Far-Right Agenda Behind the Facial Recognition Tech Used by ICE and the FBI",
+        "d": "2025-04-15",
+        "dom": "motherjones.com",
+        "url": "https://www.motherjones.com/politics/2025/04/clearview-ai-immigration-ice-fbi-surveillance-facial-recognition-hoan-ton-that-hal-lambert-trump/"
+      }
+    ],
+    "l4": {
+      "t": "ICE to Buy Tool that Tracks Locations of Hundreds of Millions of Phones",
+      "dom": "404media.co",
+      "d": "2025-10-01",
+      "tags": "",
+      "url": "https://www.404media.co/email/0ba0f6a2-9195-4ced-9c40-92bb72367e7a/"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"surveillance-and-immigration-tech\",\n  \"type\": \"topic\",\n  \"title\": \"Surveillance & Immigration Tech\",\n  \"item_count\": 14,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"content-moderation-and-speech\",\n    \"ai-chatbots-and-mental-health\",\n    \"platform-power-and-antitrust\",\n    \"ai-governance-and-regulation\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/topics/surveillance-and-immigration-tech\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · topics/surveillance-and-immigration-tech.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.87
+  },
+  "bruce-schneier": {
+    "slug": "bruce-schneier",
+    "tag": "p-purple",
+    "tagLabel": "Person · Bruce Schneier",
+    "keywords": [
+      "bruce",
+      "schneier",
+      "security",
+      "technologist",
+      "bkc",
+      "affiliate"
+    ],
+    "l1": {
+      "kind": "person",
+      "label": "Bruce Schneier",
+      "gloss": "security technologist, BKC affiliate",
+      "count": 1,
+      "neighbors": [
+        "AI & Democracy",
+        "AI Safety, Risk & Agents",
+        "Berkman Klein Center"
+      ]
+    },
+    "l2": "Security technologist and <b>Berkman Klein Center</b> affiliate. In the 2025 slice he\nappears on the constructive side of the ai and democracy debate, co-authoring (with\nNathan E. Sanders) on how AI is being used to <i>strengthen</i> democracies — a useful\ncounterweight to the archive's heavier strand of AI-as-threat-to-democracy. A node\nconnecting BKC's institutional voice to the public AI-policy conversation.",
+    "l2src": "people/bruce-schneier · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Four ways AI is being used to strengthen democracies worldwide",
+        "d": "2025-11-24",
+        "dom": "theguardian.com",
+        "url": "https://www.theguardian.com/commentisfree/2025/nov/23/ai-use-strengthen-democracy"
+      }
+    ],
+    "l4": {
+      "t": "Four ways AI is being used to strengthen democracies worldwide",
+      "dom": "theguardian.com",
+      "d": "2025-11-24",
+      "tags": "",
+      "url": "https://www.theguardian.com/commentisfree/2025/nov/23/ai-use-strengthen-democracy"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"bruce-schneier\",\n  \"type\": \"person\",\n  \"title\": \"Bruce Schneier\",\n  \"item_count\": 1,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"ai-and-democracy\",\n    \"ai-safety-and-agents\",\n    \"berkman-klein-center\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/people/bruce-schneier\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · people/bruce-schneier.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.82
+  },
+  "cindy-cohn": {
+    "slug": "cindy-cohn",
+    "tag": "p-purple",
+    "tagLabel": "Person · Cindy Cohn",
+    "keywords": [
+      "cindy",
+      "cohn",
+      "departing",
+      "eff",
+      "executive",
+      "director"
+    ],
+    "l1": {
+      "kind": "person",
+      "label": "Cindy Cohn",
+      "gloss": "departing EFF executive director",
+      "count": 1,
+      "neighbors": [
+        "Surveillance & Immigration Tech",
+        "Content Moderation & Online Speech",
+        "Electronic Frontier Foundation"
+      ]
+    },
+    "l2": "Longtime Executive Director of the <b>Electronic Frontier Foundation</b>. The 2025 slice\ncatches an inflection point — her departure from EFF leadership (\"but not the fight for\ndigital rights\") — marking a generational transition in the digital-civil-liberties\nworld that recurs throughout the archive's surveillance and speech threads.",
+    "l2src": "people/cindy-cohn · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Cindy Cohn Is Leaving the EFF, but Not the Fight for Digital Rights",
+        "d": "2025-09-18",
+        "dom": "wired.com",
+        "url": "https://www.wired.com/story/eff-cindy-cohn-stepping-down/"
+      }
+    ],
+    "l4": {
+      "t": "Cindy Cohn Is Leaving the EFF, but Not the Fight for Digital Rights",
+      "dom": "wired.com",
+      "d": "2025-09-18",
+      "tags": "",
+      "url": "https://www.wired.com/story/eff-cindy-cohn-stepping-down/"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"cindy-cohn\",\n  \"type\": \"person\",\n  \"title\": \"Cindy Cohn\",\n  \"item_count\": 1,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"surveillance-and-immigration-tech\",\n    \"content-moderation-and-speech\",\n    \"electronic-frontier-foundation\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/people/cindy-cohn\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · people/cindy-cohn.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.82
+  },
+  "evelyn-douek": {
+    "slug": "evelyn-douek",
+    "tag": "p-purple",
+    "tagLabel": "Person · Evelyn Douek",
+    "keywords": [
+      "evelyn",
+      "douek",
+      "online",
+      "speech",
+      "first",
+      "amendment",
+      "scholar"
+    ],
+    "l1": {
+      "kind": "person",
+      "label": "Evelyn Douek",
+      "gloss": "online-speech / First Amendment scholar",
+      "count": 2,
+      "neighbors": [
+        "Content Moderation & Online Speech",
+        "AI & Democracy",
+        "Knight First Amendment Institute"
+      ]
+    },
+    "l2": "Legal scholar of online speech and platform governance, and the archive's recurring\nauthority on <b>what is happening to the First Amendment online</b>. In 2025 she is a\nnamed author on the critique of the Supreme Court's TikTok ruling (with Jameel Jaffer)\nand the subject of explainer interviews on social-media speech doctrine. A reliable\nanchor for the content moderation and speech thread.",
+    "l2src": "people/evelyn-douek · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "The US supreme court's TikTok ruling is a scandal",
+        "d": "2025-12-15",
+        "dom": "theguardian.com",
+        "url": "https://www.theguardian.com/commentisfree/2025/dec/15/supreme-court-tiktok-ruling"
+      },
+      {
+        "t": "Evelyn Douek: what is going on with the First Amendment and social media",
+        "d": "2025-03-21",
+        "dom": "publicinfrastructure.org",
+        "url": "https://publicinfrastructure.org/podcast/109-evelyn-douek-please-tell-us-what-is-going-on-with-the-first-amendment-and-social-media/"
+      }
+    ],
+    "l4": {
+      "t": "The US supreme court's TikTok ruling is a scandal",
+      "dom": "theguardian.com",
+      "d": "2025-12-15",
+      "tags": "",
+      "url": "https://www.theguardian.com/commentisfree/2025/dec/15/supreme-court-tiktok-ruling"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"evelyn-douek\",\n  \"type\": \"person\",\n  \"title\": \"Evelyn Douek\",\n  \"item_count\": 2,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"content-moderation-and-speech\",\n    \"ai-and-democracy\",\n    \"knight-first-amendment-institute\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/people/evelyn-douek\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · people/evelyn-douek.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.82
+  },
+  "jonathan-zittrain": {
+    "slug": "jonathan-zittrain",
+    "tag": "p-purple",
+    "tagLabel": "Person · Jonathan Zittrain",
+    "keywords": [
+      "jonathan",
+      "zittrain",
+      "bkc",
+      "founder",
+      "faculty",
+      "director"
+    ],
+    "l1": {
+      "kind": "person",
+      "label": "Jonathan Zittrain",
+      "gloss": "BKC co-founder & faculty director",
+      "count": 1,
+      "neighbors": [
+        "AI Safety, Risk & Agents",
+        "Content Moderation & Online Speech",
+        "Berkman Klein Center"
+      ]
+    },
+    "l2": "Harvard Law professor and **co-founder / faculty director of the Berkman Klein\nCenter<b>. In the 2025 slice he speaks on </b>AI agents and trust** — squarely in the\nai safety and agents thread — bringing a governance-and-trust framing to the\nagentic-AI conversation. As BKC's central figure, his page is a natural hub to grow as\nmore years are ingested.",
+    "l2src": "people/jonathan-zittrain · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Jonathan Zittrain: AI Agents and Trust",
+        "d": "2025-07-29",
+        "dom": "youtube.com",
+        "url": "https://www.youtube.com/watch?v=KeoGZLlfMig"
+      }
+    ],
+    "l4": {
+      "t": "Jonathan Zittrain: AI Agents and Trust",
+      "dom": "youtube.com",
+      "d": "2025-07-29",
+      "tags": "",
+      "url": "https://www.youtube.com/watch?v=KeoGZLlfMig"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"jonathan-zittrain\",\n  \"type\": \"person\",\n  \"title\": \"Jonathan Zittrain\",\n  \"item_count\": 1,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"ai-safety-and-agents\",\n    \"content-moderation-and-speech\",\n    \"berkman-klein-center\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/people/jonathan-zittrain\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · people/jonathan-zittrain.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.82
+  },
+  "rudy-fraser": {
+    "slug": "rudy-fraser",
+    "tag": "p-purple",
+    "tagLabel": "Person · Rudy Fraser",
+    "keywords": [
+      "rudy",
+      "fraser",
+      "builder",
+      "blacksky",
+      "decentralized",
+      "community",
+      "infrastructure"
+    ],
+    "l1": {
+      "kind": "person",
+      "label": "Rudy Fraser",
+      "gloss": "builder of Blacksky; decentralized community infrastructure",
+      "count": 5,
+      "neighbors": [
+        "Content Moderation & Online Speech",
+        "Digital Colonialism & the Global South"
+      ]
+    },
+    "l2": "Builder of <b>Blacksky</b>, a community-run service and moderation layer on the AT\nProtocol / Bluesky designed by and for Black users. The most-recurring individual in\nthe 2025 slice — appearing across podcasts, talks, and panels — which makes him a\nuseful case study for the archive's interest in **decentralized, community-controlled\ninfrastructure** as an alternative to centralized platform governance. His framing\n(\"No one's coming to save us — communities must build their own internet\") ties the\ndecentralization thread to questions of equity and self-determination.",
+    "l2src": "people/rudy-fraser · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "\"No One's Coming to Save Us. Why Communities Must Build Their Own Internet\"",
+        "d": "2025-12-15",
+        "dom": "youtube.com",
+        "url": "https://www.youtube.com/watch?v=Pjzfc8UCjAk"
+      },
+      {
+        "t": "Nodestar: Building Blacksky w/ Rudy Fraser",
+        "d": "2025-10-08",
+        "dom": "themaybe.org",
+        "url": "https://www.themaybe.org/podcast/nodestar-building-blacksky-w-rudy-fraser"
+      },
+      {
+        "t": "Designing Social Media for Black People with BlackSky's Rudy Fraser",
+        "d": "2025-04-28",
+        "dom": "youtube.com",
+        "url": "https://www.youtube.com/watch?v=QkOeQHjml6I"
+      },
+      {
+        "t": "Beyond Horseless Carriages: Building Communities for the Decentralized Era",
+        "d": "2025-03-25",
+        "dom": "youtube.com",
+        "url": "https://www.youtube.com/watch?v=OZN8y8kVFFI"
+      },
+      {
+        "t": "Rudy Fraser on Building Blacksky and the Future of Middleware",
+        "d": "2025-03-03",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/podcast-rudy-fraser-on-building-blacksky-and-the-future-of-middleware/"
+      }
+    ],
+    "l4": {
+      "t": "\"No One's Coming to Save Us. Why Communities Must Build Their Own Internet\"",
+      "dom": "youtube.com",
+      "d": "2025-12-15",
+      "tags": "",
+      "url": "https://www.youtube.com/watch?v=Pjzfc8UCjAk"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"rudy-fraser\",\n  \"type\": \"person\",\n  \"title\": \"Rudy Fraser\",\n  \"item_count\": 5,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"content-moderation-and-speech\",\n    \"digital-colonialism-and-global-south\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/people/rudy-fraser\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · people/rudy-fraser.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.82
+  },
+  "tim-wu": {
+    "slug": "tim-wu",
+    "tag": "p-purple",
+    "tagLabel": "Person · Tim Wu",
+    "keywords": [
+      "tim",
+      "antitrust",
+      "scholar",
+      "the",
+      "age",
+      "extraction"
+    ],
+    "l1": {
+      "kind": "person",
+      "label": "Tim Wu",
+      "gloss": "antitrust scholar, *The Age of Extraction*",
+      "count": 1,
+      "neighbors": [
+        "Platform Power & Antitrust",
+        "AI, Labor & the Economy",
+        "Lawfare"
+      ]
+    },
+    "l2": "Legal scholar and antitrust thinker whose 2025 book <i>The Age of Extraction</i> supplies a\nconnective thesis for the archive: concentrated platform/AI power as an engine of\nvalue <b>extraction</b>. His framing links the structural-power concerns of\nplatform power and antitrust to the value-capture and labor anxieties in\nai labor and economy.",
+    "l2src": "people/tim-wu · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Lawfare Daily: Tim Wu on 'The Age of Extraction'",
+        "d": "2025-11-13",
+        "dom": "lawfaremedia.org",
+        "url": "https://www.lawfaremedia.org/article/lawfare-daily--tim-wu-on--the-age-of-extraction"
+      }
+    ],
+    "l4": {
+      "t": "Lawfare Daily: Tim Wu on 'The Age of Extraction'",
+      "dom": "lawfaremedia.org",
+      "d": "2025-11-13",
+      "tags": "",
+      "url": "https://www.lawfaremedia.org/article/lawfare-daily--tim-wu-on--the-age-of-extraction"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"tim-wu\",\n  \"type\": \"person\",\n  \"title\": \"Tim Wu\",\n  \"item_count\": 1,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"platform-power-and-antitrust\",\n    \"ai-labor-and-economy\",\n    \"lawfare\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/people/tim-wu\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · people/tim-wu.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.82
+  },
+  "404-media": {
+    "slug": "404-media",
+    "tag": "p-teal",
+    "tagLabel": "Organization · 404 Media",
+    "keywords": [
+      "404",
+      "media",
+      "investigative",
+      "surveillance",
+      "reporting"
+    ],
+    "l1": {
+      "kind": "org",
+      "label": "404 Media",
+      "gloss": "investigative surveillance reporting",
+      "count": 5,
+      "neighbors": [
+        "Surveillance & Immigration Tech",
+        "AI, Copyright & Knowledge Institutions"
+      ]
+    },
+    "l2": "Journalist-owned investigative tech outlet that does much of the archive's **on-the-\nground surveillance reporting**. In 2025 its scoops define the\nsurveillance and immigration tech thread: ICE buying bulk phone-location tools,\nagents scanning faces on the street, Clearview AI contracts, and a planned central\ndatabase fusing health/labor/housing data. It also reports the \"war on libraries\"\nangle in ai copyright and knowledge. Where Tech Policy Press supplies analysis, 404\nMedia supplies the documents.",
+    "l2src": "orgs/404-media · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "ICE to Buy Tool that Tracks Locations of Hundreds of Millions of Phones",
+        "d": "2025-10-01",
+        "dom": "404media.co",
+        "url": "https://www.404media.co/email/0ba0f6a2-9195-4ced-9c40-92bb72367e7a/"
+      },
+      {
+        "t": "ICE and CBP Agents Are Scanning People's Faces on the Street",
+        "d": "2025-10-29",
+        "dom": "404media.co",
+        "url": "https://www.404media.co/ice-and-cbp-agents-are-scanning-peoples-faces-on-the-street-to-verify-citizenship/"
+      },
+      {
+        "t": "ICE Spends Millions on Clearview AI Facial Recognition",
+        "d": "2025-09-08",
+        "dom": "404media.co",
+        "url": "https://www.404media.co/ice-spends-millions-on-clearview-ai-face-recognition-to-find-people-assaulting-officers/"
+      },
+      {
+        "t": "ICE Plans Central Database of Health, Labor, Housing Agency Data",
+        "d": "2025-04-22",
+        "dom": "404media.co",
+        "url": "https://www.404media.co/ice-plans-central-database-of-health-labor-housing-agency-data-to-find-targets/"
+      },
+      {
+        "t": "AI Is Supercharging the War on Libraries, Education, and Human Knowledge",
+        "d": "2025-11-17",
+        "dom": "404media.co",
+        "url": "https://www.404media.co/ai-is-supercharging-the-war-on-libraries-education-and-human-knowledge/"
+      }
+    ],
+    "l4": {
+      "t": "ICE to Buy Tool that Tracks Locations of Hundreds of Millions of Phones",
+      "dom": "404media.co",
+      "d": "2025-10-01",
+      "tags": "",
+      "url": "https://www.404media.co/email/0ba0f6a2-9195-4ced-9c40-92bb72367e7a/"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"404-media\",\n  \"type\": \"org\",\n  \"title\": \"404 Media\",\n  \"item_count\": 5,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"surveillance-and-immigration-tech\",\n    \"ai-copyright-and-knowledge\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/orgs/404-media\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · orgs/404-media.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.8
+  },
+  "berkman-klein-center": {
+    "slug": "berkman-klein-center",
+    "tag": "p-teal",
+    "tagLabel": "Organization · Berkman Klein Center for Internet & Society",
+    "keywords": [
+      "berkman",
+      "klein",
+      "center",
+      "the",
+      "archive",
+      "institutional",
+      "home",
+      "for",
+      "internet",
+      "society"
+    ],
+    "l1": {
+      "kind": "org",
+      "label": "Berkman Klein Center",
+      "gloss": "the archive's institutional home",
+      "count": 9,
+      "neighbors": [
+        "Jonathan Zittrain",
+        "Bruce Schneier",
+        "AI Safety, Risk & Agents",
+        "AI, Copyright & Knowledge Institutions"
+      ]
+    },
+    "l2": "The institutional home of this archive — Harvard's center for Internet & society, whose\ncurated feed (TagTeam hub 1176) <i>is</i> the source. Items tagged <b>`bkc-happenings`</b> flag\nBKC's own news, fellows, and affiliates, and the <b>Cyberlaw Clinic</b> (clinic.cyber.harvard.edu)\nand <b>Library Innovation Lab</b> (lil.law.harvard.edu) appear directly as actors. Reading\nthe BKC-tagged items together gives a picture of the Center's 2025 priorities:\nagentic-AI trust, AI's effect on knowledge institutions, the harms of \"dead\" AI\nsystems, and direct litigation against social-media surveillance.",
+    "l2src": "orgs/berkman-klein-center · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Bulelani Jili / Berkman Klein Center",
+        "d": "2025-08-28",
+        "dom": "cyber.harvard.edu",
+        "url": "https://cyber.harvard.edu/people/bulelani-jili"
+      },
+      {
+        "t": "Khoury professor earns BKC fellowship to research harms of dead AI systems",
+        "d": "2025-07-29",
+        "dom": "khoury.northeastern.edu",
+        "url": "https://www.khoury.northeastern.edu/khoury-professor-earns-harvard-berkman-klein-fellowship-to-research-harms-of-dead-ai-systems/"
+      },
+      {
+        "t": "Deregulating AI Labor: Deportation by Any Other Name",
+        "d": "2025-02-10",
+        "dom": "cyber.harvard.edu",
+        "url": "https://cyber.harvard.edu/events/deregulating-ai-labor-deportation-any-other-name"
+      },
+      {
+        "t": "Artificial intelligence may not be artificial",
+        "d": "2025-09-30",
+        "dom": "news.harvard.edu",
+        "url": "https://news.harvard.edu/gazette/story/2025/09/artificial-intelligence-may-not-be-artificial/"
+      },
+      {
+        "t": "Your chatbot may be the friend that isn't",
+        "d": "2025-10-30",
+        "dom": "hls.harvard.edu",
+        "url": "https://hls.harvard.edu/today/your-chatbot-may-be-the-friend-that-isnt/"
+      },
+      {
+        "t": "Cyberlaw Clinic represents advocates in social media surveillance case",
+        "d": "2025-04-18",
+        "dom": "clinic.cyber.harvard.edu",
+        "url": "https://clinic.cyber.harvard.edu/2025/04/18/clinic-represents-advocates-and-researchers-in-follow-up-to-social-media-surveillance-case/"
+      }
+    ],
+    "l4": {
+      "t": "Bulelani Jili / Berkman Klein Center",
+      "dom": "cyber.harvard.edu",
+      "d": "2025-08-28",
+      "tags": "",
+      "url": "https://cyber.harvard.edu/people/bulelani-jili"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"berkman-klein-center\",\n  \"type\": \"org\",\n  \"title\": \"Berkman Klein Center for Internet & Society\",\n  \"item_count\": 9,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"jonathan-zittrain\",\n    \"bruce-schneier\",\n    \"ai-safety-and-agents\",\n    \"ai-copyright-and-knowledge\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/orgs/berkman-klein-center\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · orgs/berkman-klein-center.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.8
+  },
+  "electronic-frontier-foundation": {
+    "slug": "electronic-frontier-foundation",
+    "tag": "p-teal",
+    "tagLabel": "Organization · Electronic Frontier Foundation",
+    "keywords": [
+      "electronic",
+      "frontier",
+      "foundation",
+      "digital",
+      "civil",
+      "liberties"
+    ],
+    "l1": {
+      "kind": "org",
+      "label": "Electronic Frontier Foundation",
+      "gloss": "digital civil liberties",
+      "count": 2,
+      "neighbors": [
+        "Surveillance & Immigration Tech",
+        "Content Moderation & Online Speech",
+        "Cindy Cohn"
+      ]
+    },
+    "l2": "The veteran digital-civil-liberties nonprofit. In the 2025 slice it appears at a\nleadership transition — the departure of longtime ED cindy cohn — and as a\nrecurring fixture in the archive's `opportunities` channel (legal internships), a\nreminder that the feed also functions as a <b>jobs/pipeline board</b> for the digital-\nrights field.",
+    "l2src": "orgs/electronic-frontier-foundation · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Cindy Cohn Is Leaving the EFF, but Not the Fight for Digital Rights",
+        "d": "2025-09-18",
+        "dom": "wired.com",
+        "url": "https://www.wired.com/story/eff-cindy-cohn-stepping-down/"
+      },
+      {
+        "t": "Legal Internship Opportunities / Electronic Frontier Foundation",
+        "d": "2025-09-20",
+        "dom": "eff.org",
+        "url": "https://www.eff.org/about/opportunities/interns"
+      }
+    ],
+    "l4": {
+      "t": "Cindy Cohn Is Leaving the EFF, but Not the Fight for Digital Rights",
+      "dom": "wired.com",
+      "d": "2025-09-18",
+      "tags": "",
+      "url": "https://www.wired.com/story/eff-cindy-cohn-stepping-down/"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"electronic-frontier-foundation\",\n  \"type\": \"org\",\n  \"title\": \"Electronic Frontier Foundation\",\n  \"item_count\": 2,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"surveillance-and-immigration-tech\",\n    \"content-moderation-and-speech\",\n    \"cindy-cohn\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/orgs/electronic-frontier-foundation\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · orgs/electronic-frontier-foundation.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.8
+  },
+  "knight-first-amendment-institute": {
+    "slug": "knight-first-amendment-institute",
+    "tag": "p-teal",
+    "tagLabel": "Organization · Knight First Amendment Institute",
+    "keywords": [
+      "knight",
+      "first",
+      "amendment",
+      "institute",
+      "online",
+      "speech",
+      "scholarship"
+    ],
+    "l1": {
+      "kind": "org",
+      "label": "Knight First Amendment Institute",
+      "gloss": "online-speech scholarship",
+      "count": 4,
+      "neighbors": [
+        "Content Moderation & Online Speech",
+        "AI & Democracy",
+        "Evelyn Douek"
+      ]
+    },
+    "l2": "Columbia-based institute (knightcolumbia.org) that is the archive's scholarly engine for\n<b>online speech and First Amendment</b> questions. Its 2025 output anchors\ncontent moderation and speech: empirical work on \"chilling effects,\" analysis of\nrecommender/feed design, the \"material support\" law's online shadow, and AI agents and\ndemocratic resilience. Closely associated with evelyn douek.",
+    "l2src": "orgs/knight-first-amendment-institute · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "The Science of Chilling Effects",
+        "d": "2025-11-11",
+        "dom": "knightcolumbia.org",
+        "url": "https://knightcolumbia.org/events/the-science-of-chilling-effects"
+      },
+      {
+        "t": "AI Agents and Democratic Resilience",
+        "d": "2025-10-08",
+        "dom": "knightcolumbia.org",
+        "url": "https://knightcolumbia.org/content/ai-agents-and-democratic-resilience"
+      },
+      {
+        "t": "Into the Driver's Seat With Social Media Content Feeds",
+        "d": "2025-03-06",
+        "dom": "knightcolumbia.org",
+        "url": "https://knightcolumbia.org/content/into-the-drivers-seat-with-social-media-content-feeds"
+      },
+      {
+        "t": "The Long Online Shadow of the Material Support Law",
+        "d": "2025-03-19",
+        "dom": "knightcolumbia.org",
+        "url": "https://knightcolumbia.org/content/the-long-online-shadow-of-the-material-support-law"
+      }
+    ],
+    "l4": {
+      "t": "The Science of Chilling Effects",
+      "dom": "knightcolumbia.org",
+      "d": "2025-11-11",
+      "tags": "",
+      "url": "https://knightcolumbia.org/events/the-science-of-chilling-effects"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"knight-first-amendment-institute\",\n  \"type\": \"org\",\n  \"title\": \"Knight First Amendment Institute\",\n  \"item_count\": 4,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"content-moderation-and-speech\",\n    \"ai-and-democracy\",\n    \"evelyn-douek\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/orgs/knight-first-amendment-institute\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · orgs/knight-first-amendment-institute.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.8
+  },
+  "lawfare": {
+    "slug": "lawfare",
+    "tag": "p-teal",
+    "tagLabel": "Organization · Lawfare",
+    "keywords": [
+      "lawfare",
+      "law",
+      "governance",
+      "analysis"
+    ],
+    "l1": {
+      "kind": "org",
+      "label": "Lawfare",
+      "gloss": "law & governance analysis",
+      "count": 4,
+      "neighbors": [
+        "Platform Power & Antitrust",
+        "AI & Democracy",
+        "Surveillance & Immigration Tech",
+        "Tim Wu"
+      ]
+    },
+    "l2": "Law-and-national-security publication (lawfaremedia.org) that supplies the archive's\n<b>legal and governance</b> analysis, often in long-form podcast and essay form. 2025\nitems span comparative Big Tech regulation (EU v. US), \"data colonialism\" political\neconomy, digital threat modeling under authoritarianism, and the <i>Age of Extraction</i>\nconversation with tim wu.",
+    "l2src": "orgs/lawfare · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "Lawfare Daily: Tim Wu on 'The Age of Extraction'",
+        "d": "2025-11-13",
+        "dom": "lawfaremedia.org",
+        "url": "https://www.lawfaremedia.org/article/lawfare-daily--tim-wu-on--the-age-of-extraction"
+      },
+      {
+        "t": "Scaling Laws: Conflicting Efforts to Regulate Big Tech — EU v. U.S.",
+        "d": "2025-09-05",
+        "dom": "lawfaremedia.org",
+        "url": "https://www.lawfaremedia.org/article/scaling-laws--contrasting-and-conflicting-efforts-to-regulate-big-tech"
+      },
+      {
+        "t": "'Data Colonialism' and the Political Economy of Big Tech",
+        "d": "2025-03-11",
+        "dom": "lawfaremedia.org",
+        "url": "https://www.lawfaremedia.org/article/data-colonialism--and-the-political-economy-of-big-tech"
+      },
+      {
+        "t": "Digital Threat Modeling Under Authoritarianism",
+        "d": "2025-09-22",
+        "dom": "lawfaremedia.org",
+        "url": "https://www.lawfaremedia.org/article/digital-threat-modeling-under-authoritarianism"
+      }
+    ],
+    "l4": {
+      "t": "Lawfare Daily: Tim Wu on 'The Age of Extraction'",
+      "dom": "lawfaremedia.org",
+      "d": "2025-11-13",
+      "tags": "",
+      "url": "https://www.lawfaremedia.org/article/lawfare-daily--tim-wu-on--the-age-of-extraction"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"lawfare\",\n  \"type\": \"org\",\n  \"title\": \"Lawfare\",\n  \"item_count\": 4,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"platform-power-and-antitrust\",\n    \"ai-and-democracy\",\n    \"surveillance-and-immigration-tech\",\n    \"tim-wu\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/orgs/lawfare\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · orgs/lawfare.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.8
+  },
+  "rest-of-world": {
+    "slug": "rest-of-world",
+    "tag": "p-teal",
+    "tagLabel": "Organization · Rest of World",
+    "keywords": [
+      "rest",
+      "world",
+      "global",
+      "majority",
+      "tech",
+      "reporting"
+    ],
+    "l1": {
+      "kind": "org",
+      "label": "Rest of World",
+      "gloss": "global-majority tech reporting",
+      "count": 6,
+      "neighbors": [
+        "Digital Colonialism & the Global South",
+        "AI, Labor & the Economy",
+        "AI & the Environment"
+      ]
+    },
+    "l2": "Nonprofit publication covering technology <b>outside the Western bubble</b>, and the\narchive's primary source for the digital colonialism and global south thread (52\nitems across the corpus; see Sources by domain). Its 2025 reporting\nsupplies the global-majority perspective that distinguishes this archive from a typical\nUS-centric tech feed — hidden African AI labor, foreign-AI dependence, AI-fueled\nmining, energy strain, and how AI shaped elections worldwide.",
+    "l2src": "orgs/rest-of-world · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "How Big Tech's AI labor supply chain relies on hidden African workers",
+        "d": "2025-04-21",
+        "dom": "restofworld.org",
+        "url": "https://restofworld.org/2025/big-tech-ai-labor-supply-chain-african-workers/"
+      },
+      {
+        "t": "Chinese and U.S. tech keeps countries dependent on foreign AI",
+        "d": "2025-09-12",
+        "dom": "restofworld.org",
+        "url": "https://restofworld.org/2025/chinese-us-tech-foreign-ai-dependence/"
+      },
+      {
+        "t": "Indigenous Chileans resist AI-fueled copper and lithium mining",
+        "d": "2025-05-27",
+        "dom": "restofworld.org",
+        "url": "https://restofworld.org/2025/ai-resource-extraction-chile-indigenous-communities/"
+      },
+      {
+        "t": "Rising AI demand is outpacing energy supply worldwide",
+        "d": "2025-09-15",
+        "dom": "restofworld.org",
+        "url": "https://restofworld.org/2025/ai-energy-supply-data-centers/"
+      },
+      {
+        "t": "How AI shaped global elections in 2024",
+        "d": "2025-04-08",
+        "dom": "restofworld.org",
+        "url": "https://restofworld.org/2025/global-elections-ai-use/"
+      },
+      {
+        "t": "India's top tech talent looks beyond the U.S.",
+        "d": "2025-12-03",
+        "dom": "restofworld.org",
+        "url": "https://restofworld.org/2025/india-tech-talent-diversifies-beyond-us/"
+      }
+    ],
+    "l4": {
+      "t": "How Big Tech's AI labor supply chain relies on hidden African workers",
+      "dom": "restofworld.org",
+      "d": "2025-04-21",
+      "tags": "",
+      "url": "https://restofworld.org/2025/big-tech-ai-labor-supply-chain-african-workers/"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"rest-of-world\",\n  \"type\": \"org\",\n  \"title\": \"Rest of World\",\n  \"item_count\": 6,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"digital-colonialism-and-global-south\",\n    \"ai-labor-and-economy\",\n    \"ai-and-the-environment\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/orgs/rest-of-world\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · orgs/rest-of-world.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.8
+  },
+  "techpolicy-press": {
+    "slug": "techpolicy-press",
+    "tag": "p-teal",
+    "tagLabel": "Organization · Tech Policy Press",
+    "keywords": [
+      "techpolicy",
+      "press",
+      "tech",
+      "policy",
+      "the",
+      "archive",
+      "most",
+      "cited",
+      "analysis",
+      "outlet"
+    ],
+    "l1": {
+      "kind": "org",
+      "label": "Tech Policy Press",
+      "gloss": "the archive's most-cited analysis outlet",
+      "count": 7,
+      "neighbors": [
+        "AI & Democracy",
+        "Content Moderation & Online Speech",
+        "Surveillance & Immigration Tech",
+        "Platform Power & Antitrust"
+      ]
+    },
+    "l2": "The single most-cited dedicated outlet in the archive (142 items across the corpus; see\nSources by domain) and the curators' apparent house publication for\ncritical tech-policy analysis. It supplies the <b>power-focused, structural</b> framing\nthat recurs across nearly every topic here — surveillance, content moderation,\ndemocracy, antitrust, digital colonialism. When a 2025 item interprets a development in\nterms of <i>who gains power</i>, it is frequently from Tech Policy Press.",
+    "l2src": "orgs/techpolicy-press · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "To Have Democracy, We Must Contest Data",
+        "d": "2025-10-20",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/to-have-democracy-we-must-contest-data/"
+      },
+      {
+        "t": "Lessons from Nigeria and Kenya on Digital Colonialism in AI Health Messaging",
+        "d": "2025-10-08",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/lessons-from-nigeria-and-kenya-on-digital-colonialism-in-ai-health-messaging/"
+      },
+      {
+        "t": "In Post-Authenticity AI Age, Knowledge Institutions Matter More than Ever",
+        "d": "2025-11-17",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/in-post-authenticity-ai-age-knowledge-institutions-matter-more-than-ever/"
+      },
+      {
+        "t": "AI Chatbots Are Not Therapists. Reducing Harm Requires Regulation",
+        "d": "2025-09-21",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/ai-chatbots-are-not-therapists-reducing-harm-requires-regulation/"
+      },
+      {
+        "t": "AI Regulation Versus AI Innovation: A Fake Dichotomy",
+        "d": "2025-04-18",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/ai-regulation-versus-ai-innovation-a-fake-dichotomy/"
+      },
+      {
+        "t": "Trump's Social Media Surveillance: Social Scoring by Another Name",
+        "d": "2025-04-21",
+        "dom": "techpolicy.press",
+        "url": "https://www.techpolicy.press/trumps-social-media-surveillance-social-scoring-by-another-name/"
+      }
+    ],
+    "l4": {
+      "t": "To Have Democracy, We Must Contest Data",
+      "dom": "techpolicy.press",
+      "d": "2025-10-20",
+      "tags": "",
+      "url": "https://www.techpolicy.press/to-have-democracy-we-must-contest-data/"
+    },
+    "l5": {
+      "json": "{\n  \"slug\": \"techpolicy-press\",\n  \"type\": \"org\",\n  \"title\": \"Tech Policy Press\",\n  \"item_count\": 7,\n  \"corpus_slice\": \"2025\",\n  \"related\": [\n    \"ai-and-democracy\",\n    \"content-moderation-and-speech\",\n    \"surveillance-and-immigration-tech\",\n    \"platform-power-and-antitrust\"\n  ],\n  \"wiki_url\": \"https://szgrune.github.io/bkc-archive-wiki/orgs/techpolicy-press\",\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "Generated metadata layer — consumed by Berkie and downstream pipelines. The wiki page is the L2 synthesis; this is the machine representation beneath it."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · orgs/techpolicy-press.md",
+      "who": "LLM synthesis over curated feed"
+    },
+    "conf": 0.8
+  },
+  "index": {
+    "slug": "index",
+    "tag": "p-amber",
+    "tagLabel": "Index · the catalog itself",
+    "keywords": [
+      "index",
+      "catalog",
+      "overview",
+      "all",
+      "topics",
+      "people",
+      "orgs",
+      "2025",
+      "everything",
+      "whole",
+      "shape",
+      "structural",
+      "power",
+      "techlash"
+    ],
+    "l1": {
+      "kind": "index",
+      "label": "Index Catalog",
+      "gloss": "the apex — every topic, person, org, by category",
+      "count": 737,
+      "neighbors": [
+        "Timeline 2025",
+        "Sources by domain",
+        "Feed tags"
+      ]
+    },
+    "l2": "The archive's 2025 prototype slice is read by the LLM as a maturing techlash: a year in which complaint hardens into a <b>structural-power critique</b>. The most concentrated threads are surveillance, platform antitrust, and AI governance's state-vs-federal tug-of-war; the archive's distinctive note is its <b>global lens</b> — digital colonialism and Global-South reporting that US-centric collections miss. The catalog itself is the most concise representation: one line per subject, a count, and a path down.",
+    "l2src": "index.md + timeline/2025 · synthesis maintained by the LLM",
+    "l3": [
+      {
+        "t": "AI Governance & Regulation — the state-vs-federal regulatory tug-of-war",
+        "d": "topic",
+        "dom": "12 items"
+      },
+      {
+        "t": "Digital Colonialism & the Global South — the archive's distinctive global lens",
+        "d": "topic",
+        "dom": "13 items"
+      },
+      {
+        "t": "Platform Power & Antitrust — concentration, the cloud oligopoly",
+        "d": "topic",
+        "dom": "11 items"
+      }
+    ],
+    "l4": {
+      "t": "Index Catalog — BKC Archive Wiki",
+      "dom": "szgrune.github.io",
+      "d": "2026-06-12",
+      "tags": "index",
+      "url": "https://szgrune.github.io/bkc-archive-wiki/"
+    },
+    "l5": {
+      "json": "{\n  \"scope\": \"prototype slice = 2025\",\n  \"items_filed\": 737,\n  \"corpus_total\": 6925,\n  \"years\": \"2014–2026\",\n  \"domains\": 2063,\n  \"generated\": [\n    \"sources/_domains\",\n    \"timeline/_counts\",\n    \"raw/feed-tags\"\n  ],\n  \"source_of_truth\": \"raw/archive.json (immutable)\"\n}",
+      "note": "The reference layer: 2,063 domains and per-month counts over the full 6,925-item corpus, all generated from the immutable archive.json beneath the wiki."
+    },
+    "prov": {
+      "where": "BKC Archive Wiki · index.md",
+      "who": "LLM synthesis; counts generated"
+    },
+    "conf": 0.93
+  }
+}
