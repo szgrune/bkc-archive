@@ -118,10 +118,11 @@ async function pollResponse(sentAt) {
 
 const ENTRY_CONTEXT = Object.entries(ENTRIES)
   .map(([slug, e]) => {
-    const l2 = htmlToMrkdwn(e.l2 ?? '').slice(0, 150)
-    return `${slug}: ${e.l1?.label ?? slug} — ${e.l1?.gloss ?? ''}\n  "${l2}"`
+    const l2 = htmlToMrkdwn(e.l2 ?? '')
+    const titles = (e.l3 ?? []).map(i => i.t).filter(Boolean).join(' · ')
+    return `${slug}: ${e.l1?.label ?? slug} — ${e.l1?.gloss ?? ''}\n  ${l2}${titles ? `\n  Items: ${titles}` : ''}`
   })
-  .join('\n')
+  .join('\n\n')
 
 async function classifyAndSynthesize(query, response) {
   const apiKey  = process.env.OPENAI_API_KEY
@@ -129,16 +130,23 @@ async function classifyAndSynthesize(query, response) {
   if (!apiKey || !Object.keys(ENTRIES).length) return { slug: null, synthesis: null }
 
   const prompt =
-`You are surfacing a BKC Archive Wiki entry after a bot responded to a query.
+`You are matching a user's question to the single most relevant BKC Archive Wiki entry.
 
-User query: "${query}"
-Bot response: "${(response ?? '').slice(0, 200)}"
+User question: "${query}"
 
-Wiki entries (slug: label — gloss / excerpt):
+Wiki entries (slug: label — gloss / excerpt / item titles):
 ${ENTRY_CONTEXT}
 
-1. Pick the single best-matching slug.
-2. Write 1–2 sentences that bridge the bot response to what the archive actually holds on this topic. Be specific — reference the archive's actual angle. No filler phrases.
+Rules:
+- Think conceptually. "Privacy and AI" maps to surveillance, data collection, or regulatory frameworks — not necessarily an entry with the word "privacy" in its title.
+- Pick the entry whose CONTENT most directly addresses the user's underlying concern, even if phrased differently.
+- If no entry is a strong match, return {"slug": "none", "synthesis": null}.
+- Do NOT default to a broad or high-profile entry just because it shares a generic term like "AI" or "democracy."
+
+For the synthesis field:
+- Frame the archive entry through the lens of the user's question. If the user asked about privacy, explain what this entry reveals about privacy — even if the entry title doesn't use that word.
+- Be concrete: reference actual angles, cases, or framings from the entry. No filler phrases.
+- 1–2 sentences only.
 
 Respond with JSON only: {"slug": "...", "synthesis": "..."}`
 
@@ -147,9 +155,9 @@ Respond with JSON only: {"slug": "...", "synthesis": "..."}`
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model: 'gpt-4o',
         messages: [{ role: 'user', content: prompt }],
-        max_tokens: 150,
+        max_tokens: 200,
         temperature: 0,
         response_format: { type: 'json_object' }
       })

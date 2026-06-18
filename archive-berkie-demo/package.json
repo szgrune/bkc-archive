@@ -6,15 +6,22 @@
     "setup": "node setup.mjs",
     "prepare-wiki": "node scripts/prepare-wiki.mjs",
     "build-entries": "node scripts/build-entries.mjs",
+    "prepare-entries": "node scripts/prepare-entries-pdfs.mjs",
     "pdfs": "node scripts/generate-pdfs.mjs",
     "ingest": "node scripts/upload-pdfs.mjs",
+    "validate-chunks": "node scripts/validate-chunks.mjs",
     "serve": "node serve.mjs",
     "slack": "node slack-bot.mjs",
     "prepare-archive": "node scripts/prepare-archive.mjs",
-    "all": "node scripts/prepare-archive.mjs && node scripts/generate-pdfs.mjs && node setup.mjs && node scripts/upload-pdfs.mjs"
+    "all": "node scripts/prepare-entries-pdfs.mjs && node setup.mjs && node scripts/upload-pdfs.mjs",
+    "all:by-year": "node scripts/prepare-archive.mjs && node scripts/generate-pdfs.mjs && node setup.mjs && node scripts/upload-pdfs.mjs"
   },
   "dependencies": {
     "@slack/bolt": "^4.7.3",
     "pdfkit": "^0.19.1"
+  },
+  "devDependencies": {
+    "@langchain/textsplitters": "^1.0.1",
+    "pdf-parse": "^2.4.5"
   }
 }
