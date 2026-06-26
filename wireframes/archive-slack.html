@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Berkie in Slack — archive surfacing with the pyramid of representations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aubergine:#3F0E40; --rail:#350D36; --active:#1164A3;
+    --side-text:rgba(255,255,255,.72); --side-dim:rgba(255,255,255,.5); --side-hover:rgba(255,255,255,.08);
+    --text:#1d1c1d; --muted:#616061; --link:#1264a3;
+    --border:#e8e8e8; --border-2:#dddddd; --hover:#f8f8f8;
+    --green:#007a5a; --code-bg:#f6f8fa;
+    --berkie:#4845d2; --berkie-card:#f6f5ff; --berkie-2:#7B78E5;
+    --teal:#0f6e56; --coral:#993c1d; --amber:#9a6206;
+    --font:'Lato',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --mono:'SFMono-Regular',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{ font-family:var(--font); background:#fff; color:var(--text); font-size:15px; line-height:1.46; -webkit-font-smoothing:antialiased; }
+  .app{ height:100vh; display:flex; flex-direction:column; }
+
+  /* top bar */
+  .topbar{ height:44px; background:var(--rail); display:flex; align-items:center; gap:12px; padding:0 14px; flex-shrink:0; }
+  .tb-hist{ display:flex; gap:4px; }
+  .tb-hist button{ width:26px; height:26px; border:0; background:transparent; color:rgba(255,255,255,.7); border-radius:6px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .tb-hist button:hover{ background:rgba(255,255,255,.1); }
+  .tb-search{ flex:1; max-width:720px; margin:0 auto; height:28px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.16); border-radius:7px; display:flex; align-items:center; gap:8px; padding:0 10px; color:rgba(255,255,255,.7); font-size:13.5px; cursor:text; }
+  .tb-right{ display:flex; align-items:center; gap:10px; }
+  .tb-right .help{ width:26px; height:26px; border-radius:50%; background:transparent; color:rgba(255,255,255,.7); border:0; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .tb-right .help:hover{ background:rgba(255,255,255,.1); }
+  .tb-ava{ width:26px; height:26px; border-radius:6px; background:#2EB67D; color:#fff; font-weight:700; font-size:11px; display:flex; align-items:center; justify-content:center; position:relative; }
+  .tb-ava .pres{ position:absolute; right:-2px; bottom:-2px; width:9px; height:9px; border-radius:50%; background:#2BAC76; border:2px solid var(--rail); }
+
+  .body{ flex:1; display:flex; min-height:0; }
+
+  /* thin workspace rail */
+  .wrail{ width:68px; background:var(--rail); display:none; flex-direction:column; align-items:center; padding:12px 0; gap:14px; flex-shrink:0; }
+  @media(min-width:1100px){ .wrail{ display:flex; } }
+  .ws-icon{ width:38px; height:38px; border-radius:9px; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  .wrail-item{ display:flex; flex-direction:column; align-items:center; gap:3px; color:rgba(255,255,255,.7); cursor:pointer; font-size:11px; font-weight:700; }
+  .wrail-item.active{ color:#fff; }
+  .wrail-item .ibox{ width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; }
+  .wrail-item.active .ibox{ background:rgba(255,255,255,.16); }
+  .wrail-spacer{ flex:1; }
+
+  /* channel sidebar */
+  .sidebar{ width:260px; background:var(--aubergine); color:var(--side-text); display:none; flex-direction:column; flex-shrink:0; }
+  @media(min-width:880px){ .sidebar{ display:flex; } }
+  .sb-head{ height:50px; display:flex; align-items:center; justify-content:space-between; padding:0 16px; border-bottom:1px solid rgba(255,255,255,.1); cursor:pointer; }
+  .sb-head .wsname{ font-weight:900; font-size:18px; color:#fff; display:flex; align-items:center; gap:5px; }
+  .sb-head .compose{ width:28px; height:28px; border-radius:50%; background:#fff; color:var(--aubergine); display:flex; align-items:center; justify-content:center; border:0; cursor:pointer; }
+  .sb-scroll{ flex:1; overflow-y:auto; padding:8px 0; }
+  .sb-scroll::-webkit-scrollbar{ width:8px; } .sb-scroll::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.2); border-radius:9px; }
+  .sb-quick{ padding:0 8px 6px; }
+  .sb-link{ display:flex; align-items:center; gap:10px; padding:6px 12px; border-radius:6px; font-size:15px; cursor:pointer; color:var(--side-text); }
+  .sb-link:hover{ background:var(--side-hover); }
+  .sb-sec{ margin-top:10px; }
+  .sb-sec-h{ display:flex; align-items:center; gap:6px; padding:4px 16px; font-size:13px; color:var(--side-dim); font-weight:700; cursor:pointer; }
+  .sb-sec-h svg{ opacity:.7; }
+  .sb-item{ display:flex; align-items:center; gap:9px; padding:5px 16px 5px 14px; font-size:15px; cursor:pointer; color:var(--side-text); border-radius:0; }
+  .sb-item:hover{ background:var(--side-hover); }
+  .sb-item.active{ background:var(--active); color:#fff; font-weight:700; }
+  .sb-item .hash{ color:var(--side-dim); font-weight:400; }
+  .sb-item.active .hash{ color:rgba(255,255,255,.8); }
+  .sb-item.unread{ color:#fff; font-weight:700; }
+  .sb-pres{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+  .sb-pres.on{ background:#2BAC76; box-shadow:inset 0 0 0 2px var(--aubergine); border:1px solid #2BAC76; }
+  .sb-pres.off{ background:transparent; border:1.5px solid var(--side-dim); }
+  .sb-ava{ width:18px; height:18px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:#fff; flex-shrink:0; }
+  .badge-n{ margin-left:auto; background:#CD2553; color:#fff; font-size:11px; font-weight:700; border-radius:9px; padding:0 6px; min-width:18px; text-align:center; }
+
+  /* main */
+  .main{ flex:1; display:flex; flex-direction:column; min-width:0; background:#fff; }
+  .ch-head{ height:50px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding:0 16px; flex-shrink:0; }
+  .ch-title{ display:flex; align-items:center; gap:8px; font-weight:900; font-size:18px; cursor:pointer; }
+  .ch-title .hash{ color:var(--muted); font-weight:400; }
+  .ch-topic{ font-size:13px; color:var(--muted); font-weight:400; border-left:1px solid var(--border); padding-left:12px; margin-left:4px; max-width:420px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ch-right{ display:flex; align-items:center; gap:10px; color:var(--muted); }
+  .ch-members{ display:flex; align-items:center; gap:0; }
+  .ch-members .m{ width:26px; height:26px; border-radius:6px; margin-left:-4px; border:2px solid #fff; font-size:10px; font-weight:700; color:#fff; display:flex; align-items:center; justify-content:center; }
+  .ch-count{ font-size:13px; padding:4px 8px; border:1px solid var(--border); border-radius:6px; }
+
+  .ch-tabs{ height:38px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:4px; padding:0 14px; flex-shrink:0; }
+  .ch-tab{ font-size:13px; color:var(--muted); padding:6px 10px; border-radius:6px; cursor:pointer; display:flex; align-items:center; gap:6px; }
+  .ch-tab.active{ color:var(--text); font-weight:700; box-shadow:inset 0 -2px 0 var(--text); border-radius:0; }
+  .ch-tab:hover:not(.active){ background:var(--hover); }
+
+  .msgs{ flex:1; overflow-y:auto; padding:18px 0 8px; }
+  .msgs::-webkit-scrollbar{ width:10px; } .msgs::-webkit-scrollbar-thumb{ background:#d3d3d3; border-radius:9px; }
+  .daydiv{ display:flex; align-items:center; justify-content:center; margin:6px 0 14px; position:relative; }
+  .daydiv::before{ content:''; position:absolute; left:16px; right:16px; height:1px; background:var(--border); }
+  .daydiv span{ position:relative; background:#fff; border:1px solid var(--border); border-radius:14px; font-size:12.5px; font-weight:700; color:var(--text); padding:3px 14px; }
+
+  .msg{ display:flex; gap:10px; padding:6px 20px; position:relative; }
+  .msg:hover{ background:var(--hover); }
+  .msg .ava{ width:36px; height:36px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#fff; }
+  .msg .ava.berkie{ background:var(--berkie); }
+  .msg-main{ flex:1; min-width:0; }
+  .msg-head{ display:flex; align-items:baseline; gap:8px; }
+  .msg-head .nm{ font-weight:900; font-size:15px; color:var(--text); }
+  .msg-head .appbadge{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; color:var(--muted); background:rgba(29,28,29,.13); border-radius:3px; padding:1px 5px; position:relative; top:-1px; }
+  .msg-head .ts{ font-size:12px; color:var(--muted); }
+  .msg-text{ font-size:15px; color:var(--text); margin-top:1px; }
+  .msg-text .mention{ background:#e8f5fa; color:#1264a3; font-weight:700; border-radius:3px; padding:0 2px; }
+  .msg-text .mention.berkie{ background:#efeefe; color:var(--berkie); }
+  .reacts{ display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
+  .react{ display:inline-flex; align-items:center; gap:5px; font-size:12px; background:#fff; border:1px solid var(--border-2); border-radius:12px; padding:1px 8px; cursor:pointer; color:var(--muted); }
+  .react:hover{ border-color:#1264a3; }
+  .react.add{ color:var(--muted); }
+  .react .cnt{ font-weight:700; color:#1264a3; }
+
+  .hover-actions{ position:absolute; top:-12px; right:18px; display:none; background:#fff; border:1px solid var(--border-2); border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+  .msg:hover .hover-actions{ display:flex; }
+  .hover-actions button{ width:30px; height:30px; border:0; background:transparent; cursor:pointer; color:var(--muted); display:flex; align-items:center; justify-content:center; }
+  .hover-actions button:hover{ background:var(--hover); }
+
+  /* ── archive surfacing card (Slack attachment style) ── */
+  .att{ margin-top:8px; border-left:4px solid var(--berkie); background:#fff; border-radius:0 8px 8px 0; box-shadow:0 0 0 1px var(--border) inset; max-width:660px; overflow:hidden; }
+  .att-head{ padding:11px 14px 8px; background:var(--berkie-card); }
+  .att-kicker{ font-size:12px; font-weight:700; color:var(--berkie); display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .att-pill{ font-size:11px; font-weight:700; padding:2px 9px; border-radius:20px; }
+  .pp-coral{ background:rgba(153,60,29,.12); color:var(--coral); }
+  .pp-purple{ background:rgba(72,69,210,.12); color:var(--berkie); }
+  .pp-amber{ background:rgba(154,98,6,.14); color:var(--amber); }
+  .att-ctxline{ font-size:13.5px; color:var(--text); margin-top:6px; line-height:1.5; }
+  .att-ctxline .benjamin{ font-style:italic; }
+
+  .lvlbar{ display:flex; align-items:center; gap:8px; padding:10px 14px 0; flex-wrap:wrap; }
+  .lvlbar .cap{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin-right:2px; }
+  .lvls{ display:flex; }
+  .lvl-btn{ font:inherit; font-size:12px; font-weight:700; border:1px solid var(--border-2); background:#fff; color:var(--text); cursor:pointer; padding:5px 10px; border-right:0; display:flex; align-items:center; gap:5px; }
+  .lvl-btn:first-child{ border-radius:6px 0 0 6px; }
+  .lvl-btn:last-child{ border-radius:0 6px 6px 0; border-right:1px solid var(--border-2); }
+  .lvl-btn:hover{ background:var(--berkie-card); }
+  .lvl-btn.on{ background:var(--berkie); color:#fff; border-color:var(--berkie); }
+  .lvl-btn .lv{ font-family:var(--mono); font-size:10px; opacity:.85; }
+
+  .att-body{ padding:13px 14px; }
+  .lvl-tag{ display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--berkie-2); margin-bottom:9px; }
+  .lvl-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--berkie-2); }
+  .synth{ font-size:14.5px; line-height:1.6; color:var(--text); }
+  .synth b{ font-weight:700; }
+  .ctx{ font-size:12px; color:var(--muted); margin-top:9px; line-height:1.5; }
+  .ctx.src{ font-style:italic; }
+  .cat-line{ font-size:14.5px; line-height:1.6; padding:8px 12px; border-radius:8px; background:var(--berkie-card); }
+  .cat-line b{ color:var(--berkie); font-weight:700; }
+  .cat-line .count{ font-family:var(--mono); font-size:12px; color:var(--muted); }
+  .kitem{ display:flex; gap:9px; padding:8px 10px; border:1px solid var(--border); border-radius:8px; margin-bottom:6px; align-items:flex-start; }
+  .kitem:hover{ border-color:var(--border-2); background:#fcfcfd; }
+  .kitem .fico{ flex-shrink:0; color:var(--muted); margin-top:1px; }
+  .kitem .ititle{ font-size:13.5px; font-weight:700; color:var(--link); line-height:1.4; text-decoration:none; cursor:pointer; }
+  .kitem .ititle:hover{ text-decoration:underline; }
+  .kitem .imeta{ font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .kitem .imeta .dom{ color:var(--berkie-2); }
+  .kitem .clinic{ color:var(--teal); font-weight:700; }
+  .orig{ border:1px solid var(--border); border-radius:8px; padding:13px; background:var(--berkie-card); }
+  .orig .ot{ font-size:14px; font-weight:700; margin-bottom:5px; }
+  .orig .om{ font-size:12px; color:var(--muted); margin-bottom:10px; }
+  .orig a.openbtn{ display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:700; color:#fff; background:var(--green); border-radius:6px; padding:8px 14px; text-decoration:none; }
+  .orig a.openbtn:hover{ background:#06603f; }
+  .orig .warn{ font-size:12px; color:var(--muted); margin-top:10px; line-height:1.5; }
+  .mach{ font-family:var(--mono); font-size:12.5px; line-height:1.55; background:#1e2030; color:#d7d4f0; border-radius:8px; padding:12px 14px; overflow-x:auto; white-space:pre-wrap; }
+  .mach .k{ color:#a5b4fc; } .mach .s{ color:#7dd3a8; } .mach .n{ color:#f0997b; }
+  .mach-note{ font-size:12px; color:var(--muted); margin-top:9px; line-height:1.5; }
+
+  .att-foot{ border-top:1px solid var(--border); padding:9px 14px; }
+  .att-ctx{ display:flex; flex-wrap:wrap; gap:5px 14px; font-size:12px; color:var(--muted); align-items:center; }
+  .att-ctx b{ font-weight:700; color:#4b5563; }
+  .conf{ display:inline-flex; align-items:center; gap:6px; }
+  .confbar{ width:44px; height:5px; border-radius:3px; background:#e6e3f7; overflow:hidden; }
+  .confbar i{ display:block; height:100%; background:var(--teal); }
+  .confbar i.low{ background:var(--coral); }
+  .att-actions{ display:flex; gap:8px; margin-top:10px; align-items:center; flex-wrap:wrap; }
+  .att-actions button, .att-actions a{ font:inherit; font-size:13px; font-weight:700; border-radius:6px; padding:7px 12px; cursor:pointer; border:1px solid var(--border-2); background:#fff; color:var(--text); text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+  .att-actions button:hover{ background:var(--hover); }
+  .att-actions .saved{ color:var(--green); border-color:var(--green); }
+  .att-feedback{ margin-left:auto; font-size:12px; color:var(--muted); display:flex; align-items:center; gap:8px; }
+  .att-feedback button{ border:0; background:transparent; cursor:pointer; font-size:14px; padding:2px 4px; border-radius:5px; }
+  .att-feedback button:hover{ background:var(--hover); }
+  .att.dismissed{ opacity:.55; }
+
+  /* composer */
+  .composer-wrap{ padding:0 20px 20px; flex-shrink:0; }
+  .sugg{ display:flex; gap:8px; padding:8px 0; flex-wrap:wrap; }
+  .sugg button{ font:inherit; font-size:12.5px; color:var(--berkie); background:var(--berkie-card); border:1px solid #e0ddfb; border-radius:16px; padding:5px 12px; cursor:pointer; }
+  .sugg button:hover{ background:#efeefe; }
+  .composer{ border:1px solid var(--border-2); border-radius:10px; overflow:hidden; }
+  .composer:focus-within{ border-color:#1d9bd1; box-shadow:0 0 0 1px #1d9bd1; }
+  .cmp-toolbar{ display:flex; align-items:center; gap:2px; padding:6px 8px; border-bottom:1px solid var(--border); }
+  .cmp-toolbar button{ width:28px; height:28px; border:0; background:transparent; border-radius:5px; cursor:pointer; color:var(--muted); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; }
+  .cmp-toolbar button:hover{ background:var(--hover); }
+  .cmp-toolbar .div{ width:1px; height:18px; background:var(--border); margin:0 4px; }
+  .composer textarea{ width:100%; border:0; outline:none; resize:none; font:inherit; font-size:15px; padding:11px 14px; background:transparent; color:var(--text); }
+  .cmp-foot{ display:flex; align-items:center; gap:4px; padding:6px 8px; }
+  .cmp-foot button{ width:30px; height:30px; border:0; background:transparent; border-radius:6px; cursor:pointer; color:var(--muted); display:flex; align-items:center; justify-content:center; }
+  .cmp-foot button:hover{ background:var(--hover); }
+  .cmp-foot .spacer{ flex:1; }
+  .cmp-send{ background:var(--green) !important; color:#fff !important; width:auto !important; padding:0 10px; gap:6px; font-size:13px; font-weight:700; }
+  .cmp-send[disabled]{ background:#e8e8e8 !important; color:#9a9a9a !important; cursor:default; }
+
+  .ledger{ padding:8px 0 0; }
+  .ledger-head{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:700; margin-bottom:5px; }
+  .led{ font-size:12.5px; border-left:3px solid var(--teal); background:var(--hover); border-radius:0 6px 6px 0; padding:5px 10px; margin-bottom:4px; }
+  .led .lt{ font-weight:700; } .led .lm{ font-size:11px; color:var(--muted); }
+
+  .note{ font-size:12px; color:var(--muted); line-height:1.6; padding:10px 20px 0; }
+  .note b{ color:var(--text); font-weight:700; } .note a{ color:var(--link); }
+  .note code{ font-family:var(--mono); font-size:11px; background:var(--hover); padding:1px 4px; border-radius:4px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- top bar -->
+  <div class="topbar">
+    <div class="tb-hist">
+      <button aria-label="back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button aria-label="forward"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+    <div class="tb-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg> Search Berkman Klein Center</div>
+    <div class="tb-right">
+      <button class="help" aria-label="help"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></button>
+      <div class="tb-ava">S<span class="pres"></span></div>
+    </div>
+  </div>
+
+  <div class="body">
+    <!-- thin workspace rail -->
+    <div class="wrail">
+      <div class="ws-icon">
+        <svg width="24" height="14.3" viewBox="0 0 40 23.881" fill="none"><path d="M 0 11.94 C 0 5.346 5.406 0 12.075 0 L 27.925 0 C 34.594 0 40 5.346 40 11.94 L 40 23.881 L 12.075 23.881 C 5.406 23.881 0 18.535 0 11.94 Z" fill="#4845D2"></path><path d="M 12.075 15.672 C 14.16 15.672 15.849 14.001 15.849 11.94 C 15.849 9.88 14.16 8.209 12.075 8.209 C 9.991 8.209 8.302 9.88 8.302 11.94 C 8.302 14.001 9.991 15.672 12.075 15.672 Z" fill="black"></path><path d="M 28.679 15.672 C 30.763 15.672 32.453 14.001 32.453 11.94 C 32.453 9.88 30.763 8.209 28.679 8.209 C 26.595 8.209 24.906 9.88 24.906 11.94 C 24.906 14.001 26.595 15.672 28.679 15.672 Z" fill="black"></path></svg>
+      </div>
+      <div class="wrail-item active"><div class="ibox"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l9 8h-3v9h-4v-6h-4v6H6v-9H3z"/></svg></div>Home</div>
+      <div class="wrail-item"><div class="ibox"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>DMs</div>
+      <div class="wrail-item"><div class="ibox"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>Activity</div>
+      <div class="wrail-item"><div class="ibox"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>Later</div>
+      <div class="wrail-spacer"></div>
+      <div class="tb-ava" style="width:34px;height:34px;border-radius:9px;font-size:13px">S</div>
+    </div>
+
+    <!-- channel sidebar -->
+    <div class="sidebar">
+      <div class="sb-head">
+        <div class="wsname">Berkman Klein Center <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></div>
+        <button class="compose" aria-label="compose"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+      </div>
+      <div class="sb-scroll">
+        <div class="sb-quick">
+          <div class="sb-link"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Threads</div>
+          <div class="sb-link"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H5.2L4 17.2z"/></svg> Mentions &amp; reactions</div>
+          <div class="sb-link"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Later</div>
+        </div>
+
+        <div class="sb-sec">
+          <div class="sb-sec-h"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg> Channels</div>
+          <div class="sb-item active"><span class="hash">#</span> bkc-summer-series</div>
+          <div class="sb-item"><span class="hash">#</span> general</div>
+          <div class="sb-item unread"><span class="hash">#</span> archive-wiki <span class="badge-n">3</span></div>
+          <div class="sb-item"><span class="hash">#</span> tech-policy-feed</div>
+          <div class="sb-item"><span class="hash">#</span> cyberlaw-clinic</div>
+        </div>
+
+        <div class="sb-sec">
+          <div class="sb-sec-h"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg> Direct messages</div>
+          <div class="sb-item"><span class="sb-ava" style="background:var(--berkie)"><svg width="13" height="13" viewBox="0 -4 32 36" fill="none" stroke="#fff" stroke-width="1.8"><rect x="8" y="10" width="16" height="12" rx="6"/><circle cx="12" cy="16" r="1.5" fill="#fff"/><circle cx="20" cy="16" r="1.5" fill="#fff"/></svg></span> Berkie <span class="sb-pres on"></span></div>
+          <div class="sb-item"><span class="sb-ava" style="background:#4285F4">P</span> Phoenix</div>
+          <div class="sb-item"><span class="sb-ava" style="background:#E8912D">J</span> Juniper</div>
+        </div>
+
+        <div class="sb-sec">
+          <div class="sb-sec-h"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg> Apps</div>
+          <div class="sb-item"><span class="sb-ava" style="background:var(--berkie)"><svg width="13" height="13" viewBox="0 -4 32 36" fill="none" stroke="#fff" stroke-width="1.8"><rect x="8" y="10" width="16" height="12" rx="6"/><circle cx="12" cy="16" r="1.5" fill="#fff"/><circle cx="20" cy="16" r="1.5" fill="#fff"/></svg></span> Berkie</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- main -->
+    <div class="main">
+      <div class="ch-head">
+        <div style="display:flex;align-items:center;min-width:0">
+          <div class="ch-title"><span class="hash">#</span> bkc-summer-series</div>
+          <div class="ch-topic">Sarah Radway · The politics of data privacy in the U.S. Census</div>
+        </div>
+        <div class="ch-right">
+          <div class="ch-members">
+            <span class="m" style="background:#4285F4">P</span>
+            <span class="m" style="background:#E8912D">J</span>
+            <span class="m" style="background:#2EB67D">S</span>
+            <span class="m" style="background:var(--berkie)">B</span>
+          </div>
+          <span class="ch-count">18</span>
+        </div>
+      </div>
+      <div class="ch-tabs">
+        <div class="ch-tab active">Messages</div>
+        <div class="ch-tab">Canvas</div>
+        <div class="ch-tab">Files</div>
+        <div class="ch-tab">+</div>
+      </div>
+
+      <div class="msgs" id="msgs">
+        <div class="daydiv"><span>Today</span></div>
+      </div>
+
+      <div class="composer-wrap">
+        <div class="sugg" id="sugg">
+          <button data-q="@Berkie what does the archive have on ICE / surveillance tech?">@Berkie · ICE surveillance</button>
+          <button data-q="@Berkie surface what we hold on decentralized community infrastructure">@Berkie · decentralized infrastructure</button>
+          <button data-q="@Berkie give me the whole shape of the 2025 archive">@Berkie · the whole 2025 picture</button>
+        </div>
+        <div class="composer">
+          <div class="cmp-toolbar">
+            <button style="font-weight:900">B</button>
+            <button style="font-style:italic">I</button>
+            <button style="text-decoration:line-through">S</button>
+            <span class="div"></span>
+            <button aria-label="link"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></button>
+            <button aria-label="ol"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6h11M10 12h11M10 18h11M4 6h1v4M4 10h2"/></svg></button>
+            <button aria-label="ul"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/><path d="M9 6h12M9 12h12M9 18h12"/></svg></button>
+            <span class="div"></span>
+            <button aria-label="code">&lt;/&gt;</button>
+          </div>
+          <textarea id="ask" rows="1" placeholder="Message #bkc-summer-series"></textarea>
+          <div class="cmp-foot">
+            <button aria-label="add"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></button>
+            <button aria-label="emoji"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg></button>
+            <button aria-label="mention" style="font-size:16px;font-weight:700">@</button>
+            <button aria-label="slash" style="font-size:15px;font-weight:700">/</button>
+            <span class="spacer"></span>
+            <button class="cmp-send" id="send" disabled aria-label="send"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"></path></svg></button>
+          </div>
+        </div>
+        <div class="ledger" id="ledger"></div>
+      </div>
+
+      <p class="note">
+        <b>Berkie in Slack.</b> Invoked with <b>@Berkie</b>, it reads the channel conversation as context — exactly as it reads NextSpace event context — and surfaces sources from the real <a href="https://szgrune.github.io/bkc-archive-wiki/" target="_blank" rel="noopener">BKC Archive Wiki</a> on request. Each surfacing arrives as a Slack message you can climb level by level: <b>L1</b> catalog → <b>L2</b> synthesis → <b>L3</b> item records → <b>L4</b> original → <b>L5</b> the generated machine layer. More abstraction is not less information — it is a different register for a different reader. Try the suggestion chips, or type your own <code>@Berkie</code> request. Retrieval is scripted over the 2025 prototype slice.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var robot='<svg width="20" height="20" viewBox="0 -4 32 36" fill="none" stroke="#fff" stroke-width="1.6"><circle cx="16" cy="5.5" r="2" fill="#fff"></circle><line x1="16" y1="7.5" x2="16" y2="10"></line><rect x="8" y="10" width="16" height="12" rx="6"></rect><circle cx="12" cy="16" r="1.5" fill="#fff"></circle><circle cx="20" cy="16" r="1.5" fill="#fff"></circle><path d="M13 19 Q16 21 19 19" stroke-linecap="round" fill="none"></path><line x1="8" y1="15" x2="4.5" y2="13"></line><line x1="24" y1="15" x2="27.5" y2="13"></line><rect x="13" y="22" width="6" height="5" rx="2"></rect></svg>';
+
+  // ── Real BKC Archive Wiki entries, each carrying all five representation levels ──
+  var ENTRIES = {
+    surveillance:{
+      tag:'pp-coral', tagLabel:'Topic · Surveillance & Immigration Tech',
+      context:'Reading the last few messages in <b>#bkc-summer-series</b> — you\u2019re discussing how surveillance infrastructure gets repurposed against immigrants. Here\u2019s what the archive holds:',
+      l1:{ label:'Surveillance & Immigration Tech', gloss:'ICE, spyware, facial recognition', count:14,
+           neighbors:['Content Moderation & Online Speech','Platform Power & Antitrust','AI Governance & Regulation'] },
+      l2:'One of the most concentrated and alarmed threads of 2025: the build-out of a US <b>domestic surveillance apparatus</b>, with <b>ICE</b> as the recurring protagonist — facial recognition (Clearview AI), bulk phone-location tracking, a central database fusing health/labor/housing data, and a \u201csocial media panopticon.\u201d Adjacent items cover commercial spyware (Paragon) and DOGE\u2019s construction of a surveillance state. The <b>Harvard Cyberlaw Clinic</b> appears directly, representing advocates in social-media-surveillance litigation. The through-line: infrastructure built for one purpose is rapidly repurposed against immigrants and dissenters.',
+      l2src:'topics/surveillance-and-immigration-tech · synthesis maintained by the LLM',
+      l3:[
+        {t:'ICE to Buy Tool that Tracks Locations of Hundreds of Millions of Phones', d:'2025-10-01', dom:'404media.co'},
+        {t:'ICE is building a social media panopticon', d:'2025-11-03', dom:'theverge.com'},
+        {t:'ICE and CBP Agents Are Scanning People\u2019s Faces on the Street', d:'2025-10-29', dom:'404media.co'},
+        {t:'Clinic Represents Advocates and Researchers in Social Media Surveillance Case', d:'2025-04-18', dom:'clinic.cyber.harvard.edu', clinic:true}
+      ],
+      l4:{ t:'ICE is building a social media panopticon | The Verge', dom:'theverge.com', d:'2025-11-03', tags:'orbit',
+           url:'https://www.theverge.com/policy/806425/ice-social-media-surveillance-free-speech-assault' },
+      l5:{ json:'{\n  "id": "16657259",\n  "title": "ICE is building a social media panopticon",\n  "source": "theverge.com",\n  "published": "2025-11-03",\n  "feed_tags": ["orbit"],\n  "topics": ["surveillance-and-immigration-tech"],\n  "backlinks": ["404-media", "lawfare", "cindy-cohn"]\n}',
+           note:'From the generated layer — item stub built by scripts/build.mjs, plus sources/_domains.md and timeline/_counts.md. This is the tier RAG and downstream pipelines consume.' },
+      where:'BKC Archive Wiki · TagTeam hub 1176', who:'LLM synthesis over curated feed', conf:0.88
+    },
+    blacksky:{
+      tag:'pp-purple', tagLabel:'Person · Rudy Fraser',
+      context:'Reading <b>#bkc-summer-series</b> — you\u2019re onto community-owned infrastructure. The archive\u2019s most-recurring 2025 figure made nearly this argument:',
+      l1:{ label:'Rudy Fraser', gloss:'builder of Blacksky; decentralized community infrastructure', count:5,
+           neighbors:['Content Moderation & Online Speech','Digital Colonialism & the Global South'] },
+      l2:'Builder of <b>Blacksky</b>, a community-run service and moderation layer on the AT Protocol / Bluesky designed by and for Black users. The most-recurring individual in the 2025 slice — across podcasts, talks, and panels — which makes him a case study for the archive\u2019s interest in <b>decentralized, community-controlled infrastructure</b> as an alternative to centralized platform governance. His framing — \u201cNo one\u2019s coming to save us; communities must build their own internet\u201d — ties decentralization to equity and self-determination.',
+      l2src:'people/rudy-fraser · synthesis maintained by the LLM',
+      l3:[
+        {t:'\u201cNo One\u2019s Coming to Save Us. Why Communities Must Build Their Own Internet\u201d', d:'2025-12-15', dom:'youtube.com'},
+        {t:'Designing Social Media for Black People with BlackSky\u2019s Rudy Fraser', d:'2025-04-28', dom:'youtube.com'},
+        {t:'Rudy Fraser on Building Blacksky and the Future of Middleware', d:'2025-03-03', dom:'techpolicy.press'}
+      ],
+      l4:{ t:'Beyond Horseless Carriages: Building Communities for the Decentralized Era', dom:'youtube.com', d:'2025-03-25', tags:'community',
+           url:'https://szgrune.github.io/bkc-archive-wiki/people/rudy-fraser' },
+      l5:{ json:'{\n  "id": "13417184",\n  "person": "rudy-fraser",\n  "recurrence": 5,\n  "topics": [\n    "content-moderation-and-speech",\n    "digital-colonialism-and-global-south"\n  ],\n  "role": "hub",\n  "graph": "person-node, 5 item leaves"\n}',
+           note:'In the wiki\u2019s graph view, people are hub nodes and items are leaves. This record is what the graph and any agent traverse.' },
+      where:'BKC Archive Wiki · people/', who:'LLM synthesis over curated feed', conf:0.84
+    },
+    catalog:{
+      tag:'pp-amber', tagLabel:'Index · the catalog itself',
+      context:'You asked for the whole shape. Here is the apex of the pyramid — the LLM\u2019s reading of the 2025 slice:',
+      l1:{ label:'Index Catalog', gloss:'the apex — every topic, person, org, by category', count:737,
+           neighbors:['Timeline 2025','Sources by domain','Feed tags'] },
+      l2:'The archive\u2019s 2025 prototype slice is read by the LLM as a maturing techlash: a year in which complaint hardens into a <b>structural-power critique</b>. The most concentrated threads are surveillance, platform antitrust, and AI governance\u2019s state-vs-federal tug-of-war; the archive\u2019s distinctive note is its <b>global lens</b> — digital colonialism and Global-South reporting that US-centric collections miss. The catalog itself is the most concise representation: one line per subject, a count, and a path down.',
+      l2src:'index.md + timeline/2025 · synthesis maintained by the LLM',
+      l3:[
+        {t:'AI Governance & Regulation — the state-vs-federal regulatory tug-of-war', d:'topic', dom:'12 items'},
+        {t:'Digital Colonialism & the Global South — the archive\u2019s distinctive global lens', d:'topic', dom:'13 items'},
+        {t:'Platform Power & Antitrust — concentration, the cloud oligopoly', d:'topic', dom:'11 items'}
+      ],
+      l4:{ t:'index — Index Catalog of the wiki. Start here, then drill into pages.', dom:'szgrune.github.io', d:'2026-06-12', tags:'index',
+           url:'https://szgrune.github.io/bkc-archive-wiki/' },
+      l5:{ json:'{\n  "scope": "prototype slice = 2025",\n  "items_filed": 737,\n  "corpus_total": 6925,\n  "years": "2014\u20132026",\n  "domains": 2063,\n  "generated": ["sources/_domains", "timeline/_counts", "raw/feed-tags"],\n  "source_of_truth": "raw/archive.json (immutable)"\n}',
+           note:'The reference layer: 2,063 domains and per-month counts over the full 6,925-item corpus, all generated from the immutable archive.json beneath the wiki.' },
+      where:'BKC Archive Wiki · index.md', who:'LLM synthesis; counts generated', conf:0.93
+    }
+  };
+
+  var LEVELS=[
+    {id:'l1',n:'L1',name:'Catalog'},{id:'l2',n:'L2',name:'Synthesis'},{id:'l3',n:'L3',name:'Items'},
+    {id:'l4',n:'L4',name:'Original'},{id:'l5',n:'L5',name:'Machine'}
+  ];
+
+  var msgs=document.getElementById('msgs'), ledger=document.getElementById('ledger');
+  var kept=[], uid=1;
+
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function pc(c){ return Math.round(c*100); }
+  function scrollDown(){ msgs.scrollTop=msgs.scrollHeight; }
+
+  function hoverActions(){
+    return '<div class="hover-actions">'+
+      '<button title="react"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg></button>'+
+      '<button title="reply in thread"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5z"/></svg></button>'+
+      '<button title="share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg></button>'+
+      '<button title="save"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>'+
+      '<button title="more"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></button>'+
+    '</div>';
+  }
+
+  function humanMsg(o){
+    // o: {init, color, name, time, html, reacts}
+    var r=document.createElement('div'); r.className='msg';
+    var reacts = o.reacts ? '<div class="reacts">'+o.reacts+'</div>' : '';
+    r.innerHTML=hoverActions()+
+      '<div class="ava" style="background:'+o.color+'">'+esc(o.init)+'</div>'+
+      '<div class="msg-main"><div class="msg-head"><span class="nm">'+esc(o.name)+'</span><span class="ts">'+esc(o.time)+'</span></div>'+
+      '<div class="msg-text">'+o.html+'</div>'+reacts+'</div>';
+    msgs.appendChild(r); scrollDown(); return r;
+  }
+
+  function berkiePlain(html, time){
+    var r=document.createElement('div'); r.className='msg';
+    r.innerHTML=hoverActions()+
+      '<div class="ava berkie">'+robot+'</div>'+
+      '<div class="msg-main"><div class="msg-head"><span class="nm">Berkie</span><span class="appbadge">App</span><span class="ts">'+(time||nowTime())+'</span></div>'+
+      '<div class="msg-text">'+html+'</div></div>';
+    msgs.appendChild(r); scrollDown(); return r;
+  }
+
+  function levelBody(e, lvl){
+    if(lvl==='l1'){
+      var L=e.l1;
+      var nb=L.neighbors.map(function(n){return esc(n);}).join(' · ');
+      return '<div class="lvl-tag"><span class="dot"></span>L1 · Index catalog — the most concise representation</div>'+
+        '<div class="cat-line"><b>'+esc(L.label)+'</b> — '+esc(L.gloss)+' <span class="count">('+L.count+')</span></div>'+
+        '<div class="ctx">In the catalog beside: '+nb+'</div>'+
+        '<div class="ctx">One line, a count, a path down. The apex of the pyramid — where you start, then drill.</div>';
+    }
+    if(lvl==='l2'){
+      return '<div class="lvl-tag"><span class="dot"></span>L2 · Synthesis — the LLM\u2019s interpretive prose</div>'+
+        '<div class="synth">'+e.l2+'</div><div class="ctx src">'+esc(e.l2src)+'</div>';
+    }
+    if(lvl==='l3'){
+      var items=e.l3.map(function(it){
+        var meta = it.clinic ? '<span class="clinic">'+esc(it.dom)+' · Cyberlaw Clinic</span>'
+                             : '<span class="dom">'+esc(it.dom)+'</span> · '+esc(it.d);
+        return '<div class="kitem"><span class="fico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>'+
+          '<div><span class="ititle">'+esc(it.t)+'</span><div class="imeta">'+meta+'</div></div></div>';
+      }).join('');
+      return '<div class="lvl-tag"><span class="dot"></span>L3 · Item records — one stub per bookmark</div>'+items+
+        '<div class="ctx">Sparse alone; the value is in the backlinks — every topic, person, and org that references them.</div>';
+    }
+    if(lvl==='l4'){
+      var o=e.l4;
+      return '<div class="lvl-tag"><span class="dot"></span>L4 · Original — full text, off-wiki</div>'+
+        '<div class="orig"><div class="ot">'+esc(o.t)+'</div><div class="om">'+esc(o.dom)+' · published '+esc(o.d)+' · feed tag: '+esc(o.tags)+'</div>'+
+        '<a class="openbtn" href="'+o.url+'" target="_blank" rel="noopener">Open original <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg></a>'+
+        '<div class="warn">The wiki never holds the full text — only a pointer. Provenance is preserved by linking out, not by copying in.</div></div>';
+    }
+    if(lvl==='l5'){
+      var m=e.l5;
+      var j=esc(m.json).replace(/"([^"]+)":/g,'<span class="k">"$1":</span>').replace(/: (".*?")/g,': <span class="s">$1</span>').replace(/: (\d+)/g,': <span class="n">$1</span>');
+      return '<div class="lvl-tag"><span class="dot"></span>L5 · Machine layer — generated, for consumers like Berkie</div>'+
+        '<div class="mach">'+j+'</div><div class="mach-note">'+esc(m.note)+'</div>';
+    }
+    return '';
+  }
+
+  function surface(key){
+    var e=ENTRIES[key]; if(!e) return;
+    var id='att'+(uid++);
+    var r=document.createElement('div'); r.className='msg';
+    var low=e.conf<0.66;
+    var ladder=LEVELS.map(function(L){
+      return '<button class="lvl-btn'+(L.id==='l2'?' on':'')+'" data-lvl="'+L.id+'"><span class="lv">'+L.n+'</span> '+L.name+'</button>';
+    }).join('');
+    r.innerHTML=hoverActions()+
+      '<div class="ava berkie">'+robot+'</div>'+
+      '<div class="msg-main"><div class="msg-head"><span class="nm">Berkie</span><span class="appbadge">App</span><span class="ts">'+nowTime()+'</span></div>'+
+      '<div class="msg-text" style="margin-bottom:2px">'+e.context+'</div>'+
+      '<div class="att" id="'+id+'">'+
+        '<div class="att-head"><div class="att-kicker">From the BKC Archive Wiki <span class="att-pill '+e.tag+'">'+esc(e.tagLabel)+'</span></div></div>'+
+        '<div class="lvlbar"><span class="cap">representation</span><div class="lvls">'+ladder+'</div></div>'+
+        '<div class="att-body" id="body-'+id+'">'+levelBody(e,'l2')+'</div>'+
+        '<div class="att-foot">'+
+          '<div class="att-ctx">'+
+            '<span><b>held in:</b> '+esc(e.where)+'</span>'+
+            '<span><b>maintained by:</b> '+esc(e.who)+'</span>'+
+            '<span class="conf"><b>confidence</b> <span class="confbar"><i class="'+(low?'low':'')+'" style="width:'+pc(e.conf)+'%"></i></span> '+pc(e.conf)+'%</span>'+
+          '</div>'+
+          '<div class="att-actions">'+
+            '<button class="save" data-key="'+key+'"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Save</button>'+
+            '<a href="'+e.l4.url+'" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg> Open original</a>'+
+            '<div class="att-feedback">Helpful? <button class="up">\uD83D\uDC4D</button><button class="down">\uD83D\uDC4E</button></div>'+
+          '</div>'+
+        '</div>'+
+      '</div></div>';
+    msgs.appendChild(r); scrollDown();
+
+    var card=document.getElementById(id);
+    card.querySelectorAll('.lvl-btn').forEach(function(b){
+      b.addEventListener('click', function(){
+        card.querySelectorAll('.lvl-btn').forEach(function(x){x.classList.remove('on');});
+        b.classList.add('on');
+        document.getElementById('body-'+id).innerHTML=levelBody(e, b.getAttribute('data-lvl'));
+      });
+    });
+    var saveBtn=card.querySelector('.save');
+    saveBtn.addEventListener('click', function(){
+      if(saveBtn.dataset.done) return; saveBtn.dataset.done='1';
+      saveBtn.classList.add('saved');
+      saveBtn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Saved';
+      kept.push(e); renderLedger();
+    });
+    var down=card.querySelector('.down');
+    down.addEventListener('click', function(){ card.classList.add('dismissed'); });
+    var up=card.querySelector('.up');
+    up.addEventListener('click', function(){ up.style.background='#e6f4ea'; });
+    return r;
+  }
+
+  function renderLedger(){
+    if(!kept.length){ ledger.innerHTML=''; return; }
+    var h='<div class="ledger-head">Saved to Archive bookmarks this session</div>';
+    kept.forEach(function(e){ h+='<div class="led"><div class="lt">'+esc(e.l1.label)+'</div><div class="lm">'+esc(e.tagLabel)+'</div></div>'; });
+    ledger.innerHTML=h;
+  }
+
+  function nowTime(){ return '1:'+(26+uid)+' PM'; }
+
+  function mentionHtml(text){
+    return esc(text).replace(/@Berkie/gi, '<span class="mention berkie">@Berkie</span>');
+  }
+
+  // ── seed the channel conversation (gives Berkie context to read) ──
+  humanMsg({ init:'P', color:'#4285F4', name:'Phoenix', time:'1:22 PM',
+    html:'that bit in Sarah\u2019s talk about surveillance infra getting repurposed is exactly the pattern we kept seeing in the feed this year \uD83D\uDC40',
+    reacts:'<span class="react"><span>\uD83D\uDC40</span><span class="cnt">2</span></span><span class="react"><span>\uD83D\uDCAF</span><span class="cnt">1</span></span>' });
+  humanMsg({ init:'J', color:'#E8912D', name:'Juniper', time:'1:23 PM',
+    html:'yeah the ICE stuff especially. wasn\u2019t there a whole cluster of items on this in the archive?' });
+  humanMsg({ init:'P', color:'#4285F4', name:'Phoenix', time:'1:24 PM',
+    html:mentionHtml('@Berkie can you surface what the archive has on ICE / surveillance tech?') });
+
+  // Berkie's first response (already in-channel, demonstrating the feature)
+  surface('surveillance');
+
+  // ── composer wiring ──
+  var ask=document.getElementById('ask'), send=document.getElementById('send');
+  function refreshSend(){ send.disabled = ask.value.trim().length===0; }
+  ask.addEventListener('input', function(){ refreshSend(); ask.style.height='auto'; ask.style.height=Math.min(ask.scrollHeight,160)+'px'; });
+
+  function route(text){
+    var t=text.toLowerCase();
+    var hasMention=/@berkie/i.test(t);
+    // post the human message as "you"
+    humanMsg({ init:'S', color:'#2EB67D', name:'Sable (you)', time:nowTime(), html:mentionHtml(text) });
+    if(!hasMention) return; // ordinary channel chatter, Berkie stays quiet
+    var key=null;
+    if(/ice|surveil|facial|clearview|spyware|panopticon|immigr/.test(t)) key='surveillance';
+    else if(/rudy|fraser|blacksky|decentral|communit|middleware|bluesky|infrastructure/.test(t)) key='blacksky';
+    else if(/catalog|index|overview|whole|shape|2025|everything|structural|picture/.test(t)) key='catalog';
+    if(key){ surface(key); }
+    else {
+      berkiePlain('I don\u2019t find a confident match in the 2025 wiki slice for that. In the full system I\u2019d return the nearest synthesis pages and item records with their provenance, and say plainly where the corpus is thin — the prototype currently covers <b>2025</b> (737 of 6,925 items).');
+    }
+  }
+
+  function submit(){
+    var v=ask.value.trim(); if(!v) return;
+    ask.value=''; ask.style.height='auto'; refreshSend();
+    route(v);
+  }
+  send.addEventListener('click', submit);
+  ask.addEventListener('keydown', function(e){ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); submit(); } });
+
+  document.getElementById('sugg').addEventListener('click', function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    route(b.getAttribute('data-q'));
+  });
+
+  scrollDown();
+})();
+</script>
+</body>
+</html>
